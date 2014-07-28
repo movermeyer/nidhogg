@@ -33,7 +33,7 @@ htmlcov
 *.mo
 
 # Mr Developer
-.idea
+.idea/*
 
 # Sphinx
 docs/_build

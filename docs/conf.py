@@ -7,7 +7,8 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinxcontrib.napoleon'
+    'sphinxcontrib.napoleon',
+    'sphinx_py3doc_enhanced_theme'
 ]
 if os.getenv('SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
