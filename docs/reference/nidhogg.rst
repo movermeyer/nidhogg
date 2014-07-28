@@ -1,0 +1,5 @@
+nidhogg
+=======
+
+.. automodule:: nidhogg
+    :members:
