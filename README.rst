@@ -2,10 +2,6 @@
 Nidhogg
 =======
 
-
-OpenSource Yggdrasil protocol implementation
---------------------------------------------
-
 .. image:: https://travis-ci.org/Orhideous/flask-nidhogg.png
     :target: https://travis-ci.org/Orhideous/flask-nidhogg
     :alt: Build Status
@@ -31,7 +27,8 @@ OpenSource Yggdrasil protocol implementation
     :alt: License
 
 
-* Free software: GNU General Public License v3 (GPLv3)
+OpenSource Yggdrasil protocol implementation
+--------------------------------------------
 
 
 Installation
