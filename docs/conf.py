@@ -1,5 +1,7 @@
 import re
 import os
+import sys
+
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -8,7 +10,6 @@ extensions = [
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
     'sphinxcontrib.napoleon',
-    'sphinx_py3doc_enhanced_theme'
 ]
 if os.getenv('SPELLCHECK'):
     extensions += 'sphinxcontrib.spelling',
@@ -24,9 +25,9 @@ version = release = re.findall(
     open(os.path.join(os.path.dirname(__file__), '../setup.py')).read()
 )[0]
 
-import sphinx_py3doc_enhanced_theme
+sys.path.append(os.path.abspath('_themes'))
+html_theme_path = ['_themes']
 html_theme = "sphinx_py3doc_enhanced_theme"
-html_theme_path = [sphinx_py3doc_enhanced_theme.get_html_theme_path()]
 
 pygments_style = 'trac'
 templates_path = ['.']
