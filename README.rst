@@ -1,7 +1,3 @@
-=======
-Nidhogg
-=======
-
 .. image:: https://travis-ci.org/Orhideous/flask-nidhogg.png
     :target: https://travis-ci.org/Orhideous/flask-nidhogg
     :alt: Build Status
@@ -27,9 +23,10 @@ Nidhogg
     :alt: License
 
 
-OpenSource Yggdrasil protocol implementation
---------------------------------------------
+About
+=====
 
+OpenSource Yggdrasil protocol implementation
 
 Installation
 ============
