@@ -1,13 +1,16 @@
 import configparser
-from settings import CURRENT_CMS
 from os.path import dirname, join
-from .database import db
+from importlib import import_module
 
+from settings import CURRENT_CMS
+
+from .database import db
 
 config = configparser.ConfigParser()
 config.read(join(dirname(__file__), 'cms.ini'))
 
 cms_config = config[CURRENT_CMS]
+hasher = import_module(CURRENT_CMS, 'common.hashers')
 
 
 class User(db.Model):
@@ -20,3 +23,6 @@ class User(db.Model):
 
     def __repr__(self):
         return '<{0}: [{1}] {2}>'.format(self.__class__.__name__, self.id, self.login)
+
+    def check_password(self, raw_password):
+        return hasher.check_password(raw=raw_password, hash=self.password)
