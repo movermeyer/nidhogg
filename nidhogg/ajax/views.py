@@ -1,5 +1,4 @@
 from flask import Blueprint
-
 from common.utils import make_json_response
 
 
@@ -17,3 +16,4 @@ def tokens():
         },
     ]
     return make_json_response(data)
+
