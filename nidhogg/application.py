@@ -7,6 +7,6 @@ def create_app(config_filename):
 
     from pages.views import pages_app
 
-    app.register_blueprint(pages_app)
+    app.register_blueprint(pages_app, url_prefix='/admin')
 
     return app
