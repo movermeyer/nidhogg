@@ -1,16 +1,4 @@
 /** @jsx React.DOM */
-var TableIndex = React.createClass({
-    render: function () {
-        return (
-            <tr>
-                <td>ID</td>
-                <td>Login</td>
-                <td>Email</td>
-                <td>Token</td>
-            </tr>
-            );
-    }
-});
 var TableRow = React.createClass({
     render: function () {
         var token = this.props.token;
@@ -54,12 +42,14 @@ var Table = React.createClass({
             <div className="col-md-9">
                 <table className="table table-stripped table-bordered">
                     <thead>
-                        <TableIndex />
+                        <tr>
+                            <td>ID</td>
+                            <td>Login</td>
+                            <td>Email</td>
+                            <td>Token</td>
+                        </tr>
                     </thead>
                     <TableBody data={this.state.data} />
-                    <tfoot>
-                        <TableIndex />
-                    </tfoot>
                 </table>
             </div>
             );
