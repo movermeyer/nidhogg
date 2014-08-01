@@ -29,29 +29,6 @@ class BaseTestCase(unittest.TestCase):
     def assertStatus(self, resp, status_code):
         self.assertEqual(resp.status_code, status_code)
 
-    def login(self, username, password, client=None):
-        if client:
-            client = client
-        else:
-            client = self.client
-        resp = client.post(
-            url_for('accounts_app.login'),
-            data=dict(username='user1', password='123456'),
-            follow_redirects=True
-        )
-        return resp
-
-    def logout(self, client=None):
-        if client:
-            client = client
-        else:
-            client = self.client
-        resp = client.get(
-            url_for('accounts_app.logout'),
-            follow_redirects=True
-        )
-        return resp
-
     @contextmanager
     def captured_templates(self, app):
         recorded = []
