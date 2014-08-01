@@ -7,7 +7,7 @@ var TableRow = React.createClass({
                 <td>{token.id}</td>
                 <td>{token.login}</td>
                 <td>{token.email}</td>
-                <td>{token.token}</td>
+                <td>{token.value}</td>
             </tr>
             );
     }
