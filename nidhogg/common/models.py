@@ -1,7 +1,6 @@
 import configparser
 from os.path import dirname, join
 from importlib import import_module
-import uuid
 
 from sqlalchemy.orm import relationship, backref
 
@@ -23,7 +22,6 @@ class User(db.Model):
     login = db.Column(cms_config['login'], db.String(255))
     email = db.Column(cms_config['email'], db.String(255))
     password = db.Column(cms_config['password'], db.String(255))
-    token = relationship('Token', backref=backref("user", uselist=False))
 
     def __repr__(self):
         return '<{0}: [{1}] {2}>'.format(self.__class__.__name__, self.id, self.login)
@@ -36,5 +34,6 @@ class Token(db.Model):
     __tablename__ = 'minecraft_tokens'
 
     id = db.Column(db.Integer, primary_key=True)
-    value = db.Column(db.String(36), default=uuid.uuid1(), nullable=True, unique=True)
+    value = db.Column(db.String(36), nullable=True, unique=True)
+    user = relationship('User', uselist=False, backref=backref("token", uselist=False))
     user_id = db.Column(db.Integer, db.ForeignKey(User.id))
