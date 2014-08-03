@@ -10,7 +10,7 @@ class TestNidhogg(BaseTestCase):
         self.assertStatus(resp, 200)
         self.assertIn('Nidhogg Admin', resp.data.decode('utf-8'))
 
-    def test_token(self):
+    def test_tokens(self):
         self.fill_db()
         resp = self.client.get(url_for('ajax_app.tokens'))
         self.assertStatus(resp, 200)
