@@ -1,13 +1,12 @@
-from flask import template_rendered, url_for
-
-from contextlib import contextmanager
 import unittest
+import uuid
 
 from application import create_app
+from common.database import db
+from common.models import User, Token
 
 
 class BaseTestCase(unittest.TestCase):
-
     def __call__(self, result=None):
         self._pre_setup()
         super(BaseTestCase, self).__call__(result)
@@ -22,23 +21,36 @@ class BaseTestCase(unittest.TestCase):
     def _post_teardown(self):
         self.ctx.pop()
 
+    def setUp(self):
+        db.create_all(app=self.app)
+
+    def tearDown(self):
+        db.drop_all(app=self.app)
+
+    def fill_db(self):
+        db.session.add(User(
+            login="Twilight",
+            email="twilight_sparkle@ponyville.eq",
+            password="12345",
+            token=Token(value=str(uuid.uuid1()))
+        ))
+        db.session.add(User(
+            login="Luna",
+            email="luna@canterlot.eq",
+            password="night",
+            token=Token(value=str(uuid.uuid1()))
+        ))
+        db.session.add(User(
+            login="CarrotTop",
+            email="carrot@ponymail.eq",
+            password="first_pie",
+            token=Token(value=str(uuid.uuid1()))
+        ))
+        db.session.commit()
+
     def assertRedirects(self, resp, location):
         self.assertTrue(resp.status_code in (301, 302))
         self.assertEqual(resp.location, 'http://localhost' + location)
 
     def assertStatus(self, resp, status_code):
         self.assertEqual(resp.status_code, status_code)
-
-    @contextmanager
-    def captured_templates(self, app):
-        recorded = []
-
-        def record(sender, template, context, **extra):
-            recorded.append((template, context))
-
-        template_rendered.connect(record, app)
-
-        try:
-            yield recorded
-        finally:
-            template_rendered.disconnect(record, app)
