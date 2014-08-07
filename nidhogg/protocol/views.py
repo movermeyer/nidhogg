@@ -8,9 +8,16 @@ from common.utils import json_response
 
 
 class YggdrasilView(View, metaclass=MethodViewType):
+    """Class-based view as wrapper for HTTP API"""
+
     decorators = [json_response]
 
-    def dispatch_request(self, endpoint):
+    def dispatch_request(self, *args, **kwargs):
+
+        try:
+            endpoint = args[0]
+        except IndexError:
+            raise exc.NotFound
 
         if request.method != "POST":
             raise exc.MethodNotAllowed
