@@ -12,8 +12,10 @@ def create_app(config_filename):
 
     from pages.views import pages_app
     from ajax.views import ajax_app
+    from protocol.views import protocol_app
 
     application.register_blueprint(pages_app, url_prefix='/admin')
     application.register_blueprint(ajax_app, url_prefix='/ajax')
+    application.register_blueprint(protocol_app)
 
     return application
