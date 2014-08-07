@@ -1,3 +1,10 @@
+from common.utils import json_response
+
+
+@json_response
+def error_handler(exception):
+    return exception.dictionary
+
 class Classproperty(property):
     """Property decorator for classes."""
 

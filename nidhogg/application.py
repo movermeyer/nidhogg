@@ -1,7 +1,8 @@
 # !/usr/bin/env python3
 from flask import Flask
 
-from protocol.exceptions import YggdrasilError
+from protocol.exceptions import YggdrasilError, error_handler
+from protocol.views import YggdrasilView
 
 
 def create_app(config_filename):
@@ -14,11 +15,10 @@ def create_app(config_filename):
 
     from pages.views import pages_app
     from ajax.views import ajax_app
-    from protocol.views import protocol_app, error_handler
 
     application.register_blueprint(pages_app, url_prefix='/admin')
     application.register_blueprint(ajax_app, url_prefix='/ajax')
-    application.register_blueprint(protocol_app)
+    application.add_url_rule('/<endpoint>', view_func=YggdrasilView.as_view('generic'))
     application.register_error_handler(YggdrasilError, error_handler)
 
     return application
