@@ -1,15 +1,21 @@
+from functools import wraps
 from json import dumps
 from flask import make_response
 
 
-def make_json_response(obj):
-    """Make json response from jsonable object
+def json_response(function):
+    """Decorator for json response from views"""
 
-    :param obj: object
-    :return: Flask response
-    :rtype: Response
-    """
-    value = dumps(obj)
-    response = make_response(value)
-    response.mimetype = 'application/json'
-    return response
+    @wraps(function)
+    def wrapped(*args, **kwargs):
+        """Return function result as Flask response with json string payload
+
+        :return: Flask response
+        :rtype: Response
+        """
+        result = function(*args, **kwargs)
+        result = dumps(result)
+        response = make_response(result)
+        response.mimetype = 'application/json'
+        return response
+    return wrapped
