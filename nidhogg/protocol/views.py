@@ -10,35 +10,35 @@ protocol_app = Blueprint('protocol_app', __name__)
 @protocol_app.route('/authenticate')
 @yggdrasil
 @json_response
-def authenticate():
+def authenticate(payload):
     return
 
 
 @protocol_app.route('/refresh')
 @yggdrasil
 @json_response
-def refresh():
+def refresh(payload):
     return
 
 
 @protocol_app.route('/validate')
 @yggdrasil
 @json_response
-def validate():
+def validate(payload):
     return
 
 
 @protocol_app.route('/signout')
 @yggdrasil
 @json_response
-def signout():
+def signout(payload):
     return
 
 
 @protocol_app.route('/invalidate')
 @yggdrasil
 @json_response
-def invalidate():
+def invalidate(payload):
     return
 
 
