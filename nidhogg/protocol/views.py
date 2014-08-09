@@ -22,7 +22,7 @@ class YggdrasilView(View, metaclass=MethodViewType):
             raise exc.MethodNotAllowed
 
         if request.mimetype != "application/json":
-            raise exc.BadPayload
+            raise exc.BadRequest
 
         try:
             method = getattr(self, endpoint)

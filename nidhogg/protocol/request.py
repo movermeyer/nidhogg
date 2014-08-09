@@ -1,11 +1,11 @@
 from json import loads
-from protocol import exceptions
+
+from protocol import exceptions as exc
 
 
 class Request:
     """Base class for Yggdrasil request"""
 
-    fields = set()
     is_valid = False
     __result = None
 
@@ -20,7 +20,7 @@ class Request:
             payload = raw_payload.decode()
             payload = loads(payload)
         except (UnicodeError, ValueError):
-            raise exceptions.BadPayload
+            raise exc.BadPayload
 
         if self.validate(payload):
             self.is_valid = True
@@ -31,6 +31,7 @@ class Request:
         """If necessary, processes the request and returns the result.
         :rtype: dict
         """
+
         if self.__result is None:
             self.__result = self.process()
         return self.__result
@@ -43,21 +44,40 @@ class Request:
         :raise exceptions.BadPayload:
         :rtype: bool
         """
-        if not isinstance(payload, dict):
-            raise exceptions.BadPayload
 
-        if not set(payload.keys()) == self.fields:
-            raise exceptions.BadPayload
+        if not isinstance(payload, dict):
+            raise exc.BadPayload
 
     def process(self):
         """Processes the request and returns the result.
         :rtype: dict
         """
+
         raise NotImplementedError
 
 
 class Authenticate(Request):
     """Yggdrasil authentication request."""
+
+    def validate(self, payload):
+        super().validate(payload)
+
+        try:
+            agent = payload.get("agent", None)
+            assert agent == {"name": "Minecraft", "version": 1}
+            client_token = payload.get("clientToken", None)
+            if client_token is not None:
+                assert isinstance(client_token, str)
+        except AssertionError:
+            raise exc.BadPayload
+
+        try:
+            username = payload.get("username", None)
+            password = payload.get("password", None)
+            assert all((username, password))
+            assert isinstance(username, str) and isinstance(password, str)
+        except AssertionError:
+            raise exc.EmptyCredentials
 
     def process(self):
         """Authenticates a user using his password."""
@@ -83,7 +103,6 @@ class Refresh(Request):
 
 
 class Validate(Request):
-
     def process(self):
         """Checks if an accessToken is a valid session token with a
         currently-active session.
@@ -103,12 +122,10 @@ class Validate(Request):
 
 
 class Signout(Request):
-
     def process(self):
         """Invalidates accessTokens using an account's username and password."""
 
 
 class Invalidate(Request):
-
     def process(self):
         """Invalidates accessTokens using a client/access token pair."""

@@ -59,9 +59,8 @@ class NotFound(YggdrasilError):
     message = "The server has not found anything matching the request URI"
 
 
-class BadPayload(YggdrasilError):
-    """Raises when payload is corrupted,
-    or not **application/json** mimetype.
+class BadRequest(YggdrasilError):
+    """Raises when **application/json** mimetype.
     """
 
     status_code = 400
@@ -99,14 +98,15 @@ class InvalidToken(AccessDenied):
     message = "Invalid token."
 
 
-class BadRequest(YggdrasilError):
+class BadPayload(YggdrasilError):
     """Common class for incorrect requests."""
 
     status_code = 400
     error = "IllegalArgumentException"
+    message = "Incorrect arguments"
 
 
-class MultipleProfiles(BadRequest):
+class MultipleProfiles(BadPayload):
     """Use if multiple profiles for account found.
 
     .. warning::
@@ -133,7 +133,7 @@ class MultipleProfiles(BadRequest):
     message = "Access token already has a profile assigned."
 
 
-class EmptyCredentials(BadRequest):
+class EmptyCredentials(BadPayload):
     """Raises when username/email/password was not submitted."""
 
     message = "Credentials can not be null."
