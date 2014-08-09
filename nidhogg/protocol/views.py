@@ -1,9 +1,8 @@
-from json import loads
-
 from flask import request
 from flask.views import MethodViewType, View
 
 from protocol import exceptions as exc
+from protocol import request as req
 from common.utils import json_response
 
 
@@ -26,31 +25,28 @@ class YggdrasilView(View, metaclass=MethodViewType):
             raise exc.BadPayload
 
         try:
-            payload = loads(request.data)
             method = getattr(self, endpoint)
-        except ValueError:
-            raise exc.BadPayload
         except AttributeError:
             raise exc.NotFound
-        else:
-            return method(payload)
+
+        return method(request.data)
 
     @staticmethod
-    def authenticate(payload):
-        return
+    def authenticate(raw_data):
+        return req.Authenticate(raw_data).result
 
     @staticmethod
-    def refresh(payload):
-        return
+    def refresh(raw_data):
+        return req.Refresh(raw_data).result
 
     @staticmethod
-    def validate(payload):
-        return
+    def validate(raw_data):
+        return req.Validate(raw_data).result
 
     @staticmethod
-    def signout(payload):
-        return
+    def signout(raw_data):
+        return req.Signout(raw_data).result
 
     @staticmethod
-    def invalidate(payload):
-        return
+    def invalidate(raw_data):
+        return req.Invalidate(raw_data).result
