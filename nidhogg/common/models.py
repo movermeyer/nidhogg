@@ -29,6 +29,9 @@ class User(db.Model):
     def check_password(self, raw_password):
         return hasher.check_password(raw=raw_password, hash=self.password)
 
+    def set_password(self, raw_password):
+        self.password = hasher.make_password(raw=raw_password)
+
 
 class Token(db.Model):
     __tablename__ = 'minecraft_tokens'
