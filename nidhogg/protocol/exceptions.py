@@ -5,6 +5,7 @@ from common.utils import json_response
 def error_handler(exception):
     return exception.dictionary
 
+
 class Classproperty(property):
     """Property decorator for classes."""
 
@@ -22,7 +23,10 @@ class YggdrasilError(Exception):
 
     def __new__(cls, *args, **kwargs):
         if cls is YggdrasilError:
-            raise TypeError("{} class may not be instantiated!".format(cls.__name__))
+            raise TypeError(
+                "{} class may not be instantiated!"
+                .format(cls.__name__)
+            )
         return super().__new__(cls, *args, **kwargs)
 
     @Classproperty
@@ -56,13 +60,17 @@ class NotFound(YggdrasilError):
 
 
 class BadPayload(YggdrasilError):
-    """Raises when payload is corrupted, or not **application/json** mimetype."""
+    """Raises when payload is corrupted,
+    or not **application/json** mimetype.
+    """
 
     status_code = 400
     error = "Unsupported Media Type"
-    message = ("The server is refusing to service the request "
-               "because the entity of the request is in a format "
-               "not supported by the requested resource for the requested method")
+    message = (
+        "The server is refusing to service the request "
+        "because the entity of the request is in a format "
+        "not supported by the requested resource for the requested method"
+    )
 
 
 class AccessDenied(YggdrasilError):
@@ -108,8 +116,8 @@ class MultipleProfiles(BadRequest):
         Currently each account will only have one single profile,
         multiple profiles per account are however planned in the future.[1]
 
-        If a user attempts to log into a valid Mojang account
-        with no attached Minecraft license, the authentication will be successful,
+        If a user attempts to log into a valid Mojang account with no attached
+        Minecraft license, the authentication will be successful,
         but the response will not contain a "selectedProfile" field,
         and the "availableProfiles" array will be empty.
 
