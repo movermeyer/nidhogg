@@ -19,8 +19,8 @@ def create_app(config_filename):
     application.register_blueprint(pages_app, url_prefix='/admin')
     application.register_blueprint(ajax_app, url_prefix='/ajax')
     application.add_url_rule(
-        '/<endpoint>',
-        view_func=YggdrasilView.as_view('generic')
+        '/<method>',
+        view_func=YggdrasilView.as_view('generic'),
     )
     application.register_error_handler(YggdrasilError, error_handler)
 

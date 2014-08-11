@@ -14,8 +14,8 @@ class YggdrasilView(View, metaclass=MethodViewType):
     def dispatch_request(self, *args, **kwargs):
 
         try:
-            endpoint = args[0]
-        except IndexError:
+            endpoint = kwargs['method']
+        except KeyError:
             raise exc.NotFound
 
         if request.method != "POST":

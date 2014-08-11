@@ -28,3 +28,10 @@ class MainTest(BaseTestCase):
         self.assertEqual(db_user.login, data_user['login'])
         self.assertEqual(db_user.id, data_user['id'])
         self.assertEqual(db_user.token.created, data_user['created'])
+
+
+class ApiTest(BaseTestCase):
+    def test_authenticate(self):
+        resp = self.client.get(
+            url_for('generic', method='authenticate')
+        ).data.decode('utf-8')
