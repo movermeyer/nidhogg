@@ -54,3 +54,10 @@ class Token(db.Model):
         backref=backref("token", uselist=False)
     )
     user_id = db.Column(db.ForeignKey(User.id))
+
+    def __repr__(self):
+        return '<{0}: [{1}] {2}>'.format(
+            self.__class__.__name__,
+            self.id,
+            self.user_id
+        )
