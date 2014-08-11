@@ -2,12 +2,21 @@
 var TableRow = React.createClass({
     render: function () {
         var token = this.props.token;
+        var date = token.created ? new Date(
+            token.created.__datetime__[0],
+            token.created.__datetime__[1] - 1,
+            token.created.__datetime__[2],
+            token.created.__datetime__[3],
+            token.created.__datetime__[4],
+            token.created.__datetime__[5],
+            token.created.__datetime__[6]
+        ) : "—";
         return (
             <tr>
                 <td>{token.id}</td>
                 <td>{token.login}</td>
                 <td>{token.email}</td>
-                <td>{token.value}</td>
+                <td>{date.toString()}</td>
             </tr>
             );
     }
@@ -46,7 +55,7 @@ var Table = React.createClass({
                             <td>ID</td>
                             <td>Login</td>
                             <td>Email</td>
-                            <td>Token</td>
+                            <td>Date</td>
                         </tr>
                     </thead>
                     <TableBody data={this.state.data} />
