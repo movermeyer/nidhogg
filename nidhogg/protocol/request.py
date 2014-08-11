@@ -90,17 +90,19 @@ class Authenticate(Request):
             except AssertionError:
                 raise exc.BadPayload
 
-        try:
-            assert isinstance(payload.get("password"), str)
-            assert isinstance(payload.get("password"), str)
-        except AssertionError:
-            raise exc.InvalidCredentials
+        username = payload.get("username")
+        password = payload.get("password")
 
         try:
-            assert len(payload.get("username"))
-            assert len(payload.get("password"))
+            assert username is not None and password is not None
         except AssertionError:
             raise exc.EmptyCredentials
+
+        try:
+            assert isinstance(username, str)
+            assert isinstance(password, str)
+        except AssertionError:
+            raise exc.InvalidCredentials
 
     def process(self):
         """Authenticates a user using his password.
