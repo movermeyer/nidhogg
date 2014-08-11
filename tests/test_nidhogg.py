@@ -1,6 +1,7 @@
 from itertools import product
 import json
-from common.models import User
+
+from common.models import User, Token
 
 from protocol import request as req
 from protocol import exceptions as exc
@@ -116,7 +117,8 @@ class AuthenticateTest(BaseTestCase):
             "password": "12345",
         }
         request = req.Authenticate(json.dumps(payload))
-        result = request.process()
+        request.process()
+        result = request.result
         user = User.query.filter(User.email == payload["username"]).one()
 
         self.assertIn("accessToken", result)
@@ -131,7 +133,9 @@ class AuthenticateTest(BaseTestCase):
             "agent": {"name": "Minecraft", "version": 1}
         }
         request = req.Authenticate(json.dumps(payload))
-        result = request.process()
+        request.process()
+        result = request.result
+
         user = User.query.filter(User.email == payload["username"]).one()
         profile = {"id": user.token.client, "name": user.login}
 
@@ -148,7 +152,83 @@ class AuthenticateTest(BaseTestCase):
             "clientToken": req.Request._generate_token()
         }
         request = req.Authenticate(json.dumps(payload))
-        result = request.process()
+        request.process()
+        result = request.result
 
         self.assertIn("clientToken", result)
         self.assertEqual(payload["clientToken"], result["clientToken"])
+
+
+class RefreshTest(BaseTestCase):
+    def test_invalid_payload(self):
+        values = (123, True, [1], {2: 3}, "")
+        access_tokens = product(["accessToken"], values)
+        client_tokens = product(["clientToken"], values)
+        pairs = list(product(list(access_tokens), list(client_tokens)))
+        probes = [dict(pair) for pair in pairs]
+
+        for pair in probes:
+            with self.assertRaises(exc.InvalidToken):
+                req.Refresh(json.dumps(pair))
+
+    def test_invalid_token(self):
+        payload = {"clientToken": "nonexistent token"}
+
+        with self.assertRaises(exc.InvalidToken):
+            request = req.Refresh(json.dumps(payload))
+            request.process()
+
+    def test_success_refresh(self):
+        payload = {
+            "username": "twilight_sparkle@ponyville.eq",
+            "password": "12345",
+        }
+        request = req.Authenticate(json.dumps(payload))
+        request.process()
+        result = request.result
+        token = Token.query.filter(Token.client == result["clientToken"]).one()
+        old_token_values = (token.access, token.client)
+
+        refresh_request = req.Refresh(json.dumps(result))
+        refresh_request.process()
+        refresh_result = refresh_request.result
+        fresh_token = (
+            Token.query
+            .filter(Token.client == refresh_result["clientToken"])
+            .one()
+        )
+        new_token_values = (token.access, token.client)
+
+        self.assertNotEqual(result, fresh_token)
+        self.assertNotEqual(old_token_values, new_token_values)
+
+        self.assertEqual(refresh_result["accessToken"], token.access)
+        self.assertEqual(refresh_result["clientToken"], token.client)
+
+
+class ValidateTest(BaseTestCase):
+    def test_invalid_payload(self):
+        payloads = ({}, {"accessToken": 123}, {"accessToken": ""})
+
+        for payload in payloads:
+            with self.assertRaises(exc.BadPayload):
+                req.Validate(json.dumps(payload))
+
+    def test_invalid_token(self):
+        payload = {"accessToken": "nonexistent token"}
+
+        with self.assertRaises(exc.InvalidToken):
+            request = req.Validate(json.dumps(payload))
+            request.process()
+
+    def test_successful_validate(self):
+        payload = {
+            "username": "twilight_sparkle@ponyville.eq",
+            "password": "12345"
+        }
+        request = req.Authenticate(json.dumps(payload))
+        request.process()
+
+        payload = {"accessToken": request.result["accessToken"]}
+        request = req.Validate(json.dumps(payload))
+        request.process()
