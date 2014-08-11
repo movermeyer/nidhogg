@@ -1,4 +1,11 @@
-from json import loads
+import uuid
+import json
+
+from sqlalchemy import or_
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from common.database import db
+
+from common.models import User, Token
 
 from protocol import exceptions as exc
 
@@ -6,25 +13,26 @@ from protocol import exceptions as exc
 class Request:
     """Base class for Yggdrasil request"""
 
-    is_valid = False
     __result = None
 
     def __init__(self, raw_payload):
         """
-        :type raw_payload: bytes
-        :param raw_payload: Raw payload bytes
+        :type raw_payload: bytes | str | dict
         :raise exceptions.BadPayload:
         """
 
         try:
-            payload = raw_payload.decode()
-            payload = loads(payload)
-        except (UnicodeError, ValueError):
+            assert isinstance(raw_payload, (bytes, str))
+            payload = raw_payload
+            if isinstance(payload, bytes):
+                payload = payload.decode()
+            if isinstance(payload, str):
+                payload = json.loads(payload)
+        except (AssertionError, UnicodeError, ValueError):
             raise exc.BadPayload
 
-        if self.validate(payload):
-            self.is_valid = True
-            self.payload = payload
+        self.validate(payload)
+        self.payload = payload
 
     @property
     def result(self):
@@ -55,6 +63,15 @@ class Request:
 
         raise NotImplementedError
 
+    @staticmethod
+    def _generate_token():
+        """Generate random UUID token like Java's UUID.toString()
+
+        :rtype: str
+        """
+
+        return uuid.uuid1().hex
+
 
 class Authenticate(Request):
     """Yggdrasil authentication request."""
@@ -62,33 +79,77 @@ class Authenticate(Request):
     def validate(self, payload):
         super().validate(payload)
 
-        try:
-            agent = payload.get("agent", None)
-            assert agent == {"name": "Minecraft", "version": 1}
-            client_token = payload.get("clientToken", None)
-            if client_token is not None:
+        agent = payload.get("agent")
+        if agent is not None:
+            try:
+                assert agent == {"name": "Minecraft", "version": 1}
+            except AssertionError:
+                raise exc.BadPayload
+
+        client_token = payload.get("clientToken")
+        if client_token is not None:
+            try:
                 assert isinstance(client_token, str)
-        except AssertionError:
-            raise exc.BadPayload
+                assert len(client_token)
+            except AssertionError:
+                raise exc.BadPayload
 
         try:
-            username = payload.get("username", None)
-            password = payload.get("password", None)
-            assert all((username, password))
-            assert isinstance(username, str) and isinstance(password, str)
+            assert all((payload.get("username"), payload.get("password")))
         except AssertionError:
             raise exc.EmptyCredentials
 
+        try:
+            assert isinstance(payload.get("password"), str)
+            assert isinstance(payload.get("password"), str)
+        except AssertionError:
+            raise exc.InvalidCredentials
+
     def process(self):
-        """Authenticates a user using his password."""
+        """Authenticates a user using his password.
 
-    """The clientToken should be a randomly generated identifier
-    and must be identical for each request. In case it is omitted the server
-    will generate a random token based on Java's UUID.toString() which should
-    then be stored by the client.
+        .. note::
+            The clientToken should be a randomly generated identifier and must
+            be identical for each request. In case it is omitted the server will
+            generate a random token based on Java's UUID.toString() which should
+            then be stored by the client.
 
-    This will however also invalidate all previously acquired accessTokens
-    for this user across all clients."""
+            This will however also invalidate all previously acquired
+            accessTokens for this user across all clients.
+        """
+        username = self.payload["username"]
+        password = self.payload["password"]
+
+        try:
+            user = (
+                User.query
+                .filter(or_(User.login == username, User.email == username))
+                .one()
+            )
+        except (NoResultFound, MultipleResultsFound):
+            raise exc.InvalidCredentials
+
+        if not user.check_password(raw_password=password):
+            raise exc.InvalidCredentials
+
+        if username == user.login:
+            raise exc.MigrationDone
+
+        token = Token()
+        token.access = self._generate_token()
+        token.client = self.payload.get("clientToken", self._generate_token())
+        user.token = token
+
+        db.session.commit()
+
+        result = {"accessToken": token.access, "clientToken": token.client}
+
+        if "agent" in self.payload:
+            profile = {"id": token.client, "name": user.login}
+            result["selectedProfile"] = profile
+            result["availableProfiles"] = [profile]
+
+        return result
 
 
 class Refresh(Request):
