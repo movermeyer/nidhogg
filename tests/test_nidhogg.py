@@ -253,7 +253,7 @@ class InvalidateTest(BaseTestCase):
     def test_successful_invalidate(self):
         payload = {
             "username": "twilight_sparkle@ponyville.eq",
-            "password": "12345",
+            "password": "12345"
         }
         user = User.query.filter(User.email == payload["username"]).one()
         token_id = user.token.id

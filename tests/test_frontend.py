@@ -31,7 +31,58 @@ class MainTest(BaseTestCase):
 
 
 class ApiTest(BaseTestCase):
+    def send_payload(self, url, payload):
+        return self.client.post(
+            path=url,
+            content_type='application/json',
+            data=json.dumps(payload)
+        )
+
+    def make_auth(self):
+        payload = {
+            "username": "twilight_sparkle@ponyville.eq",
+            "password": "12345",
+        }
+        return self.send_payload(
+            url_for('generic', method='authenticate'),
+            payload
+        )
+
     def test_authenticate(self):
-        resp = self.client.get(
-            url_for('generic', method='authenticate')
-        ).data.decode('utf-8')
+        response = self.make_auth()
+        self.assertStatus(response, 200)
+
+    def test_refresh(self):
+        result = self.make_auth()
+        response = self.send_payload(
+            url_for('generic', method='refresh'),
+            json.loads(result.data.decode())
+        )
+        self.assertStatus(response, 200)
+
+    def test_validate(self):
+        result = self.make_auth()
+        response = self.send_payload(
+            url_for('generic', method='validate'),
+            {"accessToken": json.loads(result.data.decode())["accessToken"]}
+        )
+        self.assertStatus(response, 200)
+        self.assertEqual(response.data, b'')
+
+    def test_signout(self):
+        self.make_auth()
+        response = self.send_payload(
+            url_for('generic', method='signout'),
+            {"username": "twilight_sparkle@ponyville.eq", "password": "12345"}
+        )
+        self.assertStatus(response, 200)
+        self.assertEqual(response.data, b'')
+
+    def test_invalidate(self):
+        result = self.make_auth()
+        response = self.send_payload(
+            url_for('generic', method='validate'),
+            json.loads(result.data.decode())
+        )
+        self.assertStatus(response, 200)
+        self.assertEqual(response.data, b'')
