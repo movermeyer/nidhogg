@@ -8,7 +8,7 @@ from protocol import exceptions as exc
 from tests.base import BaseTestCase
 
 
-class RequestTestBreak(BaseTestCase):
+class RequestTest(BaseTestCase):
     def test_wrong_argument(self):
         with self.assertRaises(exc.BadPayload):
             req.Request('[]')
@@ -232,3 +232,38 @@ class ValidateTest(BaseTestCase):
         payload = {"accessToken": request.result["accessToken"]}
         request = req.Validate(json.dumps(payload))
         request.process()
+
+
+class SignoutTest(BaseTestCase):
+    def test_successful_signout(self):
+        payload = {
+            "username": "twilight_sparkle@ponyville.eq",
+            "password": "12345"
+        }
+        user = User.query.filter(User.email == payload["username"]).one()
+        token_id = user.token.id
+        request = req.Signout(json.dumps(payload))
+        request.process()
+
+        self.assertIsNone(user.token)
+        self.assertIsNone(Token.query.get(token_id))
+
+
+class InvalidateTest(BaseTestCase):
+    def test_successful_invalidate(self):
+        payload = {
+            "username": "twilight_sparkle@ponyville.eq",
+            "password": "12345",
+        }
+        user = User.query.filter(User.email == payload["username"]).one()
+        token_id = user.token.id
+
+        request = req.Authenticate(json.dumps(payload))
+        request.process()
+        result = request.result
+
+        invalidate_request = req.Invalidate(json.dumps(result))
+        invalidate_request.process()
+
+        self.assertIsNone(user.token)
+        self.assertIsNone(Token.query.get(token_id))
