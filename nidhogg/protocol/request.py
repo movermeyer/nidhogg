@@ -3,17 +3,16 @@ import json
 
 from sqlalchemy import or_
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+
 from common.database import db
-
 from common.models import User, Token
-
 from protocol import exceptions as exc
 
 
 class Request:
     """Base class for Yggdrasil request"""
 
-    __result = None
+    _result = None
 
     def __init__(self, raw_payload):
         """
@@ -36,13 +35,10 @@ class Request:
 
     @property
     def result(self):
-        """If necessary, processes the request and returns the result.
+        """Return result for request.
         :rtype: dict
         """
-
-        if self.__result is None:
-            self.__result = self.process()
-        return self.__result
+        return self._result
 
     def validate(self, payload):
         """Perform initial payload validation.
@@ -95,15 +91,16 @@ class Authenticate(Request):
                 raise exc.BadPayload
 
         try:
-            assert all((payload.get("username"), payload.get("password")))
-        except AssertionError:
-            raise exc.EmptyCredentials
-
-        try:
             assert isinstance(payload.get("password"), str)
             assert isinstance(payload.get("password"), str)
         except AssertionError:
             raise exc.InvalidCredentials
+
+        try:
+            assert len(payload.get("username"))
+            assert len(payload.get("password"))
+        except AssertionError:
+            raise exc.EmptyCredentials
 
     def process(self):
         """Authenticates a user using his password.
@@ -117,8 +114,8 @@ class Authenticate(Request):
             This will however also invalidate all previously acquired
             accessTokens for this user across all clients.
         """
-        username = self.payload["username"]
-        password = self.payload["password"]
+        username = self.payload.get("username")
+        password = self.payload.get("password")
 
         try:
             user = (
@@ -149,11 +146,22 @@ class Authenticate(Request):
             result["selectedProfile"] = profile
             result["availableProfiles"] = [profile]
 
-        return result
+        self._result = result
 
 
 class Refresh(Request):
     """Yggdrasil refresh request."""
+
+    def validate(self, payload):
+        client_token = payload.get("clientToken")
+        access_token = payload.get("accessToken")
+        try:
+            assert isinstance(client_token, str)
+            assert isinstance(access_token, str)
+            assert len(client_token)
+            assert len(access_token)
+        except AssertionError:
+            raise exc.InvalidToken
 
     def process(self):
         """Refreshes a valid accessToken.
@@ -162,8 +170,33 @@ class Refresh(Request):
         and is preferred over storing the user's password in a file.
         """
 
+        client_token_value = self.payload.get("clientToken")
+        try:
+            token = (
+                Token.query
+                .filter(Token.client == client_token_value)
+            ).one()
+        except (NoResultFound, MultipleResultsFound):
+            raise exc.InvalidToken
+
+        token.access = Request._generate_token()
+        db.session.commit()
+
+        self._result = {
+            "accessToken": token.access,
+            "clientToken": token.client
+        }
+
 
 class Validate(Request):
+    def validate(self, payload):
+        try:
+            access_token = payload.get("accessToken")
+            assert isinstance(access_token, str)
+            assert len(access_token)
+        except AssertionError:
+            raise exc.BadPayload
+
     def process(self):
         """Checks if an accessToken is a valid session token with a
         currently-active session.
@@ -180,6 +213,13 @@ class Validate(Request):
             To authenticate a user by session token, use the refresh verb and
             catch resulting errors.
         """
+        try:
+            (
+                Token.query
+                .filter(Token.access == self.payload.get("accessToken"))
+            ).one()
+        except (NoResultFound, MultipleResultsFound):
+            raise exc.InvalidToken
 
 
 class Signout(Request):
