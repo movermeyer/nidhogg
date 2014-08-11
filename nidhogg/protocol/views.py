@@ -1,15 +1,15 @@
 from flask import request
-from flask.views import MethodViewType, View
+from flask.views import View
 
 from protocol import exceptions as exc
 from protocol import request as req
 from common.utils import json_response
 
 
-class YggdrasilView(View, metaclass=MethodViewType):
+class YggdrasilView(View):
     """Class-based view as wrapper for HTTP API"""
 
-    decorators = [json_response]
+    methods = ['GET', 'POST']
 
     def dispatch_request(self, *args, **kwargs):
 
@@ -32,21 +32,33 @@ class YggdrasilView(View, metaclass=MethodViewType):
         return method(request.data)
 
     @staticmethod
+    @json_response
     def authenticate(raw_data):
-        return req.Authenticate(raw_data).result
+        instance = req.Authenticate(raw_data)
+        instance.process()
+        return instance.result
 
     @staticmethod
+    @json_response
     def refresh(raw_data):
-        return req.Refresh(raw_data).result
+        instance = req.Refresh(raw_data)
+        instance.process()
+        return instance.result
 
     @staticmethod
     def validate(raw_data):
-        return req.Validate(raw_data).result
+        instance = req.Validate(raw_data)
+        instance.process()
+        return ''
 
     @staticmethod
     def signout(raw_data):
-        return req.Signout(raw_data).result
+        instance = req.Signout(raw_data)
+        instance.process()
+        return ''
 
     @staticmethod
     def invalidate(raw_data):
-        return req.Invalidate(raw_data).result
+        instance = req.Invalidate(raw_data)
+        instance.process()
+        return ''
