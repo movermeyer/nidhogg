@@ -1,6 +1,6 @@
 def check_password(raw=None, hash=None):
-    return True
+    return raw == hash
 
 
 def set_password(raw=None):
-    return 'qwerty'
+    return raw
