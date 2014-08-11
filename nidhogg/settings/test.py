@@ -1,4 +1,5 @@
-from settings import *
+from .base import *
+
 
 DEBUG = False
 TESTING = True

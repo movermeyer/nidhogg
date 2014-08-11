@@ -1,4 +1,4 @@
-from settings import *
+from .base import *
 
 DEBUG = False
 SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}".format(
@@ -10,3 +10,4 @@ SQLALCHEMY_DATABASE_URI = "mysql+pymysql://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME
         'PORT': '',
     }
 )
+CURRENT_CMS = ''
