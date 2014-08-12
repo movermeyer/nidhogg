@@ -3,11 +3,16 @@ from flask import Flask
 
 from protocol.exceptions import YggdrasilError, error_handler
 from protocol.views import YggdrasilView
+import os
 
 
-def create_app(config_filename):
+def create_app():
+    config = os.environ.setdefault(
+        'NIDHOGG_SETTINGS_MODULE',
+        'nidhogg.settings.base'
+    )
     application = Flask(__name__)
-    application.config.from_object(config_filename)
+    application.config.from_object(config)
 
     from common.database import db
 
