@@ -1,4 +1,4 @@
-from common.utils import json_response
+from nidhogg.common.utils import json_response
 
 
 @json_response

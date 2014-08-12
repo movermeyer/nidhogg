@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-from common.database import db
-from common.models import User, Token
-from common.utils import json_response
+from nidhogg.common.database import db
+from nidhogg.common.models import User, Token
+from nidhogg.common.utils import json_response
 
 
 ajax_app = Blueprint('ajax_app', __name__)

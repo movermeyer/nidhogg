@@ -5,9 +5,9 @@ from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
-from common.database import db
-from common.models import User, Token
-from protocol import exceptions as exc
+from nidhogg.common.database import db
+from nidhogg.common.models import User, Token
+from nidhogg.protocol import exceptions as exc
 
 
 class Request:

@@ -4,8 +4,8 @@ from importlib import import_module
 
 from sqlalchemy.orm import relationship, backref
 
-from settings.main import CURRENT_CMS
-from common.database import db
+from nidhogg.settings.main import CURRENT_CMS
+from nidhogg.common.database import db
 
 
 config = configparser.ConfigParser()

@@ -2,8 +2,8 @@ import json
 
 from flask import url_for
 
-from common.models import User
-from common.utils import json_datetime_hook
+from nidhogg.common.models import User
+from nidhogg.common.utils import json_datetime_hook
 from tests.base import BaseTestCase
 
 

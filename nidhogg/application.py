@@ -1,8 +1,8 @@
 # !/usr/bin/env python3
 from flask import Flask
 
-from protocol.exceptions import YggdrasilError, error_handler
-from protocol.views import YggdrasilView
+from nidhogg.protocol.exceptions import YggdrasilError, error_handler
+from nidhogg.protocol.views import YggdrasilView
 import os
 
 
@@ -14,12 +14,12 @@ def create_app():
     application = Flask(__name__)
     application.config.from_object(config)
 
-    from common.database import db
+    from nidhogg.common.database import db
 
     db.init_app(application)
 
-    from pages.views import pages_app
-    from ajax.views import ajax_app
+    from nidhogg.pages.views import pages_app
+    from nidhogg.ajax.views import ajax_app
 
     application.register_blueprint(pages_app, url_prefix='/admin')
     application.register_blueprint(ajax_app, url_prefix='/ajax')

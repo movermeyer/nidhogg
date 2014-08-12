@@ -1,10 +1,10 @@
 from itertools import product
 import json
 
-from common.models import User, Token
+from nidhogg.common.models import User, Token
 
-from protocol import request as req
-from protocol import exceptions as exc
+from nidhogg.protocol import request as req
+from nidhogg.protocol import exceptions as exc
 from tests.base import BaseTestCase
 
 

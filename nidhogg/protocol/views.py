@@ -1,9 +1,9 @@
 from flask import request
 from flask.views import View
 
-from protocol import exceptions as exc
-from protocol import request as req
-from common.utils import json_response
+from nidhogg.protocol import exceptions as exc
+from nidhogg.protocol import request as req
+from nidhogg.common.utils import json_response
 
 
 class YggdrasilView(View):

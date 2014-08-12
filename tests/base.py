@@ -1,8 +1,8 @@
 import unittest
 
-from application import create_app
-from common.database import db
-from common.models import User, Token
+from nidhogg.application import create_app
+from nidhogg.common.database import db
+from nidhogg.common.models import User, Token
 
 
 class BaseTestCase(unittest.TestCase):
