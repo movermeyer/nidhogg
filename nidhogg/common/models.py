@@ -1,27 +1,31 @@
-import configparser
-from os.path import dirname, join
+import os
 from importlib import import_module
 
 from sqlalchemy.orm import relationship, backref
 
-from nidhogg.settings.main import CURRENT_CMS
 from nidhogg.common.database import db
 
 
-config = configparser.ConfigParser()
-config.read(join(dirname(__file__), 'cms.ini'))
+hasher_name = os.environ.setdefault(
+    'NIDHOGG_HASHER_PACKAGE',
+    'nidhogg.common.hashers.generic'
+)
+config_name = os.environ.setdefault(
+    'NIDHOGG_SETTINGS_MODULE',
+    'nidhogg.settings.base'
+)
 
-cms_config = config[CURRENT_CMS]
-hasher = import_module('common.hashers.' + CURRENT_CMS)
+hasher = import_module(hasher_name)
+config = import_module(config_name)
 
 
 class User(db.Model):
-    __tablename__ = cms_config['table']
+    __tablename__ = config.DB.table
 
-    id = db.Column(cms_config['id'], db.Integer, primary_key=True)
-    login = db.Column(cms_config['login'], db.String(255))
-    email = db.Column(cms_config['email'], db.String(255))
-    password = db.Column(cms_config['password'], db.String(255))
+    id = db.Column(config.DB.id, db.Integer, primary_key=True)
+    login = db.Column(config.DB.login, db.String(255))
+    email = db.Column(config.DB.email, db.String(255))
+    password = db.Column(config.DB.password, db.String(255))
 
     def __repr__(self):
         return '<{0}: [{1}] {2}>'.format(

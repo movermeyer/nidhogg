@@ -1,3 +1,4 @@
+import os
 import unittest
 
 from nidhogg.application import create_app
@@ -12,7 +13,7 @@ class BaseTestCase(unittest.TestCase):
         self._post_teardown()
 
     def _pre_setup(self):
-        self.app = create_app('settings.main')
+        self.app = create_app()
         self.client = self.app.test_client()
         self.ctx = self.app.test_request_context()
         self.ctx.push()
