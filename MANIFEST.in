@@ -1,12 +1,6 @@
 graft docs
-graft conf
 graft nidhogg
 graft tests
-
-include *.komodoproject
-include .coveragerc
-include .isort.cfg
-include .pylintrc
 
 include AUTHORS.rst
 include CHANGELOG.rst
