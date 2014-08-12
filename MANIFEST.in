@@ -1,7 +1,6 @@
 graft docs
-graft examples
 graft conf
-graft src
+graft nidhogg
 graft tests
 
 include *.komodoproject
@@ -16,5 +15,7 @@ include LICENSE
 include README.rst
 
 include tox.ini .travis.yml
+
+include run.py
 
 global-exclude *.py[co] __pycache__

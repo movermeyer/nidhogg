@@ -14,6 +14,12 @@ def read(*names, **kwargs):
     ).read()
 
 
+requirements = [
+    "Flask>=0.10.1",
+    "Flask-SQLAlchemy==1.0",
+    "SQLAlchemy==0.9.7",
+    "PyMySQL==0.6.2"
+]
 setup(
     name="nidhogg",
     version="0.1.0",
@@ -49,11 +55,6 @@ setup(
     keywords=[
         "Minecraft", "Yggdrasil", "Authentication",
     ],
-    install_requires=[
-        "Flask>=0.10.1",
-    ],
+    install_requires=requirements,
     test_suite='tests',
-    test_requirements=[
-        "Flask>=0.10.1",
-    ],
 )
