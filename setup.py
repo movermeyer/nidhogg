@@ -22,7 +22,7 @@ requirements = [
 ]
 setup(
     name="flask-nidhogg",
-    version="0.1.0",
+    version="1.0.0",
     license="GPLv3",
     description="OpenSource Yggdrasil protocol implementation",
     long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),

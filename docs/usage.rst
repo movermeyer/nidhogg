@@ -17,7 +17,7 @@ Or, run in debug mode:
 
 Advanced
 --------
-If you want to use **flask-nidhogg*** in a project:
+If you want to use **flask-nidhogg** in a project:
 
 .. code-block:: python
 

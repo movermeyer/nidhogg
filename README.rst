@@ -26,6 +26,9 @@
     :target: https://flask-nidhogg.readthedocs.org/
     :alt: Docs
 
+.. image:: https://requires.io/github/Orhideous/flask-nidhogg/requirements.png?branch=master
+     :target: https://requires.io/github/Orhideous/flask-nidhogg/requirements/?branch=master
+     :alt: Requirements Status
 
 About
 =====
