@@ -30,7 +30,7 @@ Basic
 
 Since this is a common flask-application, after installation, you can immediately run it as usual.
 
-.. code-block::
+.. code-block:: bash
 
     uwsgi -s /tmp/uwsgi.sock -w nidhogg.run:app
 
@@ -42,7 +42,7 @@ Advanced
 --------
 If you want to use **flask-nidhogg*** in a project:
 
-.. code-block::
+.. code-block:: python
 
     import nidhogg
 
