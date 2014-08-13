@@ -107,7 +107,8 @@ class BadPayload(YggdrasilError):
 
 
 class MultipleProfiles(BadPayload):
-    """Use if multiple profiles for account found.
+    """
+    Use if multiple profiles for account found.
 
     .. warning::
         Selecting profiles isn't implemented yet.
