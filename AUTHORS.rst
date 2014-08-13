@@ -1,4 +1,4 @@
 Authors
 =======
 
-* Andriy Kushnir - https://orhideous.name
+* Andriy Kushnir (Orhideous) - https://orhideous.name

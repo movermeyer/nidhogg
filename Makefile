@@ -1,4 +1,4 @@
-.PHONY: clean-pyc clean-build docs clean
+.PHONY: clean-pyc clean-build clean
 
 help:
 	@echo "clean-build - remove build artifacts"
@@ -6,7 +6,6 @@ help:
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
 	@echo "test-all - run tests on every Python version with tox"
-	@echo "docs - generate Sphinx HTML documentation, including API docs"
 	@echo "release - package and upload a release"
 	@echo "dist - package"
 
@@ -31,12 +30,6 @@ test:
 
 test-all:
 	tox
-
-docs:
-    rm docs/reference/*
-	sphinx-apidoc -o docs/reference nidhogg
-	$(MAKE) -C docs html
-	open docs/_build/html/index.html
 
 release: clean
 	python setup.py sdist upload
