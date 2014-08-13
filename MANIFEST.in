@@ -10,6 +10,4 @@ include README.rst
 
 include tox.ini .travis.yml
 
-include run.py
-
 global-exclude *.py[co] __pycache__
