@@ -21,7 +21,7 @@ requirements = [
     "PyMySQL==0.6.2"
 ]
 setup(
-    name="nidhogg",
+    name="flask-nidhogg",
     version="0.1.0",
     license="GPLv3",
     description="OpenSource Yggdrasil protocol implementation",

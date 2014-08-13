@@ -4,7 +4,7 @@ Welcome to flask-nidhogg's documentation!
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    readme
    installation

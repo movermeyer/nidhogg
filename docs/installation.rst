@@ -4,7 +4,7 @@ Installation
 
 From PyPI::
 
-    pip install nidhogg
+    pip install flask-nidhogg
 
 From GitHub::
 
