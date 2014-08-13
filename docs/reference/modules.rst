@@ -1,8 +1,7 @@
-nidhogg modules
+Modules documentation
 ===============
 
 .. toctree::
-   :maxdepth: 4
 
     nidhogg.ajax.views
     nidhogg.application
