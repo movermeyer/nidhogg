@@ -4,14 +4,9 @@ nidhogg.common.hashers package
 Submodules
 ----------
 
-nidhogg.common.hashers.generic module
--------------------------------------
+.. toctree::
 
-.. automodule:: nidhogg.common.hashers.generic
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   nidhogg.common.hashers.generic
 
 Module contents
 ---------------

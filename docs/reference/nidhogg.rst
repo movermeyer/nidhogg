@@ -15,22 +15,10 @@ Subpackages
 Submodules
 ----------
 
-nidhogg.application module
---------------------------
+.. toctree::
 
-.. automodule:: nidhogg.application
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nidhogg.run module
-------------------
-
-.. automodule:: nidhogg.run
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   nidhogg.application
+   nidhogg.run
 
 Module contents
 ---------------

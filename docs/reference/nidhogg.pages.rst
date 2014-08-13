@@ -4,14 +4,9 @@ nidhogg.pages package
 Submodules
 ----------
 
-nidhogg.pages.views module
---------------------------
+.. toctree::
 
-.. automodule:: nidhogg.pages.views
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   nidhogg.pages.views
 
 Module contents
 ---------------
