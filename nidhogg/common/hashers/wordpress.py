@@ -1,3 +1,5 @@
+"""WordPress simple password checker"""
+
 import hashlib
 
 
@@ -5,6 +7,8 @@ SYMBOLS = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
 
 def encode64(raw_input, rounds):
+    """Shitty binary black magic"""
+
     output = ''
     current = 0
 
@@ -36,6 +40,16 @@ def encode64(raw_input, rounds):
 
 
 def check_password(raw=None, hashed=None):
+    """Check WP password
+
+    .. warning::
+        IN THE NAME OF CELESTIA, DO NOT TOUCH!
+
+    :param raw: Raw password
+    :param hashed: Password hash
+    :return: Correctness flag
+    :rtype: bool
+    """
     output = '*0'
 
     if hashed.startswith(output):
