@@ -7,7 +7,7 @@ from nidhogg.common.database import db
 
 
 hasher_name = os.environ.setdefault(
-    'NIDHOGG_HASHER_PACKAGE',
+    'NIDHOGG_HASHER_MODULE',
     'nidhogg.common.hashers.generic'
 )
 config_name = os.environ.setdefault(
