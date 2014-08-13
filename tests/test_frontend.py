@@ -81,7 +81,7 @@ class ApiTest(BaseTestCase):
     def test_invalidate(self):
         result = self.make_auth()
         response = self.send_payload(
-            url_for('generic', method='validate'),
+            url_for('generic', method='invalidate'),
             json.loads(result.data.decode())
         )
         self.assertStatus(response, 200)
