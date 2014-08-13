@@ -27,7 +27,6 @@
     :alt: Docs
 
 
-
 About
 =====
 

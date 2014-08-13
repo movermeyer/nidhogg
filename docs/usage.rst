@@ -6,7 +6,8 @@ Initial configuration
 ---------------------
 
 Before you do anything, you need to configure the application.
-It's performed by two environment variables::
+It's performed by two environment variables.
+
 ``NIDHOGG_SETTINGS_MODULE`` — main settings module (``'nidhogg.settings.base'`` by default)
 ``NIDHOGG_HASHER_MODULE`` — hasher module (``'nidhogg.common.hashers.generic'`` by default)
 
