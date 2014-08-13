@@ -37,7 +37,7 @@ class User(db.Model):
         )
 
     def check_password(self, raw_password):
-        return hasher.check_password(raw=raw_password, hash=self.password)
+        return hasher.check_password(raw=raw_password, hashed=self.password)
 
 
 class Token(db.Model):

@@ -35,28 +35,28 @@ def encode64(raw_input, rounds):
     return output
 
 
-def check_password(raw_password, stored_hash):
+def check_password(raw=None, hashed=None):
     output = '*0'
 
-    if stored_hash.startswith(output):
+    if hashed.startswith(output):
         output = '*1'
 
-    if not stored_hash.startswith('$P$') and not stored_hash.startswith('$H$'):
+    if not hashed.startswith('$P$') and not hashed.startswith('$H$'):
         return output
 
-    symbol_place = SYMBOLS.find(stored_hash[3])
+    symbol_place = SYMBOLS.find(hashed[3])
     if symbol_place < 7 or symbol_place > 30:
         return output
 
     count = 1 << symbol_place
-    salt = stored_hash[4:12]
+    salt = hashed[4:12]
 
     if len(salt) != 8:
         return output
 
-    sp_digest = hashlib.md5((salt + raw_password).encode()).digest()
+    sp_digest = hashlib.md5((salt + raw).encode()).digest()
 
     for i in range(count):
-        sp_digest = hashlib.md5(sp_digest + raw_password.encode()).digest()
+        sp_digest = hashlib.md5(sp_digest + raw.encode()).digest()
 
-    return stored_hash[:12] + encode64(sp_digest, 16) == stored_hash
+    return hashed[:12] + encode64(sp_digest, 16) == hashed
