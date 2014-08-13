@@ -3,4 +3,4 @@
 
 def check_password(raw=None, hashed=None):
     """«Checks» password."""
-    return True
+    return raw == hashed
