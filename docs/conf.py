@@ -26,7 +26,7 @@ version = release = re.findall(
 
 sys.path.append(os.path.abspath('_themes'))
 html_theme_path = ['_themes']
-html_theme = "sphinx_py3doc_enhanced_theme"
+html_theme = "flask"
 
 pygments_style = 'trac'
 templates_path = ['.']
