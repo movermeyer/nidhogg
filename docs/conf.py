@@ -26,9 +26,9 @@ version = release = re.findall(
     open(os.path.join(os.path.dirname(__file__), '../setup.py')).read()
 )[0]
 
-sys.path.append(os.path.abspath('_themes'))
-html_theme_path = ['_themes']
-html_theme = "flask"
+# sys.path.append(os.path.abspath('_themes'))
+# html_theme_path = ['_themes']
+html_theme = "default"
 
 pygments_style = 'trac'
 templates_path = ['.']

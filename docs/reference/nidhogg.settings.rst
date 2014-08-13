@@ -4,9 +4,14 @@ nidhogg.settings package
 Submodules
 ----------
 
-.. toctree::
+nidhogg.settings.base module
+----------------------------
 
-   nidhogg.settings.base
+.. automodule:: nidhogg.settings.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

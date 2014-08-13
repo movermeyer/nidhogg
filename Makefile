@@ -33,8 +33,8 @@ test-all:
 	tox
 
 docs:
-	sphinx-apidoc -o docs/ nidhogg
-	$(MAKE) -C docs clean
+    rm docs/reference/*
+	sphinx-apidoc -o docs/reference nidhogg
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 

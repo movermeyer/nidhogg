@@ -11,11 +11,30 @@ Subpackages
 Submodules
 ----------
 
-.. toctree::
+nidhogg.common.database module
+------------------------------
 
-   nidhogg.common.database
-   nidhogg.common.models
-   nidhogg.common.utils
+.. automodule:: nidhogg.common.database
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nidhogg.common.models module
+----------------------------
+
+.. automodule:: nidhogg.common.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nidhogg.common.utils module
+---------------------------
+
+.. automodule:: nidhogg.common.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

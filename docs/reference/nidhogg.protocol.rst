@@ -4,11 +4,30 @@ nidhogg.protocol package
 Submodules
 ----------
 
-.. toctree::
+nidhogg.protocol.exceptions module
+----------------------------------
 
-   nidhogg.protocol.exceptions
-   nidhogg.protocol.request
-   nidhogg.protocol.views
+.. automodule:: nidhogg.protocol.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nidhogg.protocol.request module
+-------------------------------
+
+.. automodule:: nidhogg.protocol.request
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+nidhogg.protocol.views module
+-----------------------------
+
+.. automodule:: nidhogg.protocol.views
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

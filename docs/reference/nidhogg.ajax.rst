@@ -4,9 +4,14 @@ nidhogg.ajax package
 Submodules
 ----------
 
-.. toctree::
+nidhogg.ajax.views module
+-------------------------
 
-   nidhogg.ajax.views
+.. automodule:: nidhogg.ajax.views
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
