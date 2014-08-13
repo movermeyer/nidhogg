@@ -22,6 +22,11 @@
     :target: https://pypi.python.org/pypi/flask-nidhogg/
     :alt: License
 
+.. image:: https://readthedocs.org/projects/nidhogg/badge/?version=latest
+    :target: https://flask-nidhogg.readthedocs.org/
+    :alt: Docs
+
+
 
 About
 =====
