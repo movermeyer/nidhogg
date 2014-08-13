@@ -9,12 +9,5 @@ Module: :mod:`common.hashers.generic`
 
 .. currentmodule:: nidhogg.common.hashers.generic
 
-Functions
----------
-
-
 .. autofunction:: nidhogg.common.hashers.generic.check_password
-
-
-.. autofunction:: nidhogg.common.hashers.generic.set_password
 

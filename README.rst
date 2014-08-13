@@ -35,14 +35,18 @@ OpenSource Yggdrasil protocol implementation
 Installation
 ============
 
-::
+From PyPI::
 
-    pip install nidhogg
+    pip install flask-nidhogg
+
+From GitHub::
+
+    git clone https://github.com/Orhideous/flask-nidhogg.git
 
 Documentation
 =============
 
-https://flask-nidhogg.readthedocs.org/
+`ReadTheDocs <http://nidhogg.readthedocs.org/en/latest/readme.html>`_
 
 Development
 ===========

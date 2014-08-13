@@ -7,7 +7,7 @@ Contents:
    :maxdepth: 2
 
    readme
-   installation
+   configuration
    usage
    reference/modules
    contributing

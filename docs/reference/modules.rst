@@ -6,6 +6,7 @@ Modules documentation
     nidhogg.ajax.views
     nidhogg.application
     nidhogg.common.hashers.generic
+    nidhogg.common.hashers.wordpress
     nidhogg.common.models
     nidhogg.common.utils
     nidhogg.pages.views
