@@ -1,10 +1,10 @@
-Welcome to Nidhogg's documentation!
-===================================
+Welcome to flask-nidhogg's documentation!
+=========================================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    readme
    installation
