@@ -1,3 +1,5 @@
 sphinx
 sphinxcontrib-napoleon
--e .
+Flask>=0.10.1
+Flask-SQLAlchemy==1.0
+SQLAlchemy==0.9.7

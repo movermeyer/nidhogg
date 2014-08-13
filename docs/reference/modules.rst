@@ -1,15 +1,15 @@
 Modules documentation
-===============
+=====================
 
 .. toctree::
 
-    nidhogg.ajax.views
-    nidhogg.application
-    nidhogg.common.hashers.generic
-    nidhogg.common.models
-    nidhogg.common.utils
-    nidhogg.pages.views
-    nidhogg.protocol.exceptions
-    nidhogg.protocol.request
-    nidhogg.protocol.views
-    nidhogg.settings.base
+    reference/nidhogg.ajax.views
+    reference/nidhogg.application
+    reference/nidhogg.common.hashers.generic
+    reference/nidhogg.common.models
+    reference/nidhogg.common.utils
+    reference/nidhogg.pages.views
+    reference/nidhogg.protocol.exceptions
+    reference/nidhogg.protocol.request
+    reference/nidhogg.protocol.views
+    reference/nidhogg.settings.base
