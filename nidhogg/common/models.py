@@ -20,6 +20,8 @@ config = import_module(config_name)
 
 
 class User(db.Model):
+    """User model for mapping to existing table"""
+
     __tablename__ = config.DB.table
 
     id = db.Column(config.DB.id, db.Integer, primary_key=True)
@@ -42,6 +44,8 @@ class User(db.Model):
 
 
 class Token(db.Model):
+    """Token model, used for authentication"""
+
     __tablename__ = 'minecraft_tokens'
 
     id = db.Column(db.Integer, primary_key=True)

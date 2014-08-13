@@ -1,3 +1,5 @@
+"""AJAX-related views"""
+
 from flask import Blueprint
 
 from nidhogg.common.database import db
@@ -11,6 +13,7 @@ ajax_app = Blueprint('ajax_app', __name__)
 @ajax_app.route('/tokens')
 @json_response
 def tokens():
+    """Return all registered users and their tokens."""
     query = db.session.query(
         User.id,
         User.login,

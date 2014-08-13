@@ -7,6 +7,11 @@ import os
 
 
 def create_app():
+    """Flask application factory
+
+    :rtype: Flask
+    """
+
     config = os.environ.setdefault(
         'NIDHOGG_SETTINGS_MODULE',
         'nidhogg.settings.base'

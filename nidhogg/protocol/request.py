@@ -1,3 +1,5 @@
+"""Request classes implementing main protocol logic"""
+
 import uuid
 import json
 
@@ -295,7 +297,6 @@ class Signout(Request):
 
 
 class Invalidate(Request):
-
     def validate(self, payload):
         self.validate_token_pair(payload)
 

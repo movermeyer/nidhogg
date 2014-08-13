@@ -1,3 +1,5 @@
+"""Class-based request view for passing HTTP requests to Request instances"""
+
 from flask import request
 from flask.views import View
 
@@ -12,7 +14,10 @@ class YggdrasilView(View):
     methods = ['GET', 'POST']
 
     def dispatch_request(self, *args, **kwargs):
-
+        """
+        Dispatches request to endpoint or
+        return NotFound as JSON'ified error.
+        """
         try:
             endpoint = kwargs['method']
         except KeyError:
@@ -34,6 +39,16 @@ class YggdrasilView(View):
     @staticmethod
     @json_response
     def authenticate(raw_data):
+        """Authenticate endpoint
+
+        .. note::
+            URL: /authenticate
+
+        :type raw_data: bytes
+        :rtype: str
+        :return: JSON-encoded dict
+        """
+
         instance = req.Authenticate(raw_data)
         instance.process()
         return instance.result
@@ -41,24 +56,64 @@ class YggdrasilView(View):
     @staticmethod
     @json_response
     def refresh(raw_data):
+        """Refresh endpoint
+
+        .. note::
+            URL: /refresh
+
+        :type raw_data: bytes
+        :rtype: str
+        :return: JSON-encoded dict
+        """
+
         instance = req.Refresh(raw_data)
         instance.process()
         return instance.result
 
     @staticmethod
     def validate(raw_data):
+        """Validate endpoint
+
+        .. note::
+            URL: /validate
+
+        :type raw_data: bytes
+        :rtype: str
+        :return: Empty string (nothing)
+        """
+
         instance = req.Validate(raw_data)
         instance.process()
         return ''
 
     @staticmethod
     def signout(raw_data):
+        """Signout endpoint
+
+        .. note::
+            URL: /signout
+
+        :type raw_data: bytes
+        :rtype: str
+        :return: Empty string (nothing)
+        """
+
         instance = req.Signout(raw_data)
         instance.process()
         return ''
 
     @staticmethod
     def invalidate(raw_data):
+        """Invalidate endpoint
+
+        .. note::
+            URL: /invalidate
+
+        :type raw_data: bytes
+        :rtype: str
+        :return: Empty string (nothing)
+        """
+
         instance = req.Invalidate(raw_data)
         instance.process()
         return ''

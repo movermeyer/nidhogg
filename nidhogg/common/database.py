@@ -1,2 +1,2 @@
 from flask.ext.sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+db = SQLAlchemy()  # SQLA singleton
