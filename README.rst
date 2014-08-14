@@ -23,7 +23,7 @@
     :alt: License
 
 .. image:: https://readthedocs.org/projects/nidhogg/badge/?version=latest
-    :target: https://flask-nidhogg.readthedocs.org/
+    :target: https://nidhogg.readthedocs.org/
     :alt: Docs
 
 .. image:: https://requires.io/github/Orhideous/flask-nidhogg/requirements.png?branch=master
