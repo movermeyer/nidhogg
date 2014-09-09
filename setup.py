@@ -5,25 +5,23 @@ from os.path import dirname, join
 from setuptools import setup
 
 
-def read(*names, **kwargs):
-    return io.open(
-        join(dirname(__file__), *names),
-        encoding=kwargs.get("encoding", "utf8")
-    ).read()
+def read(*args):
+    return (
+        io
+        .open(join(dirname(__file__), *args))
+        .read()
+    )
 
 
-requirements = [
-    "Flask>=0.10.1",
-    "Flask-SQLAlchemy==1.0",
-    "SQLAlchemy==0.9.7",
-    "PyMySQL==0.6.2"
-]
 setup(
     name="flask-nidhogg",
     version="1.1.0",
     license="GPLv3",
     description="OpenSource Yggdrasil protocol implementation",
-    long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
+    long_description="{}\n{}".format(
+        read("README.rst"),
+        re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))
+    ),
     author="Andriy Kushnir",
     author_email="orhideous@gmail.com",
     url="https://github.com/Orhideous/flask-nidhogg",
@@ -49,9 +47,7 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
         "Topic :: Utilities",
     ],
-    keywords=[
-        "Minecraft", "Yggdrasil", "Authentication",
-    ],
-    install_requires=requirements,
+    keywords=["Minecraft", "Yggdrasil", "Authentication", ],
+    install_requires=read("requirements.txt").splitlines(),
     test_suite='tests',
 )
