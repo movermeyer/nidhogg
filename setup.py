@@ -15,7 +15,7 @@ def read(*args):
 
 setup(
     name="flask-nidhogg",
-    version="1.1.0",
+    version="1.1.1",
     license="GPLv3",
     description="OpenSource Yggdrasil protocol implementation",
     long_description="{}\n{}".format(

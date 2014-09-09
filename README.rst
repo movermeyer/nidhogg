@@ -22,8 +22,8 @@
     :target: https://pypi.python.org/pypi/flask-nidhogg/
     :alt: License
 
-.. image:: https://readthedocs.org/projects/nidhogg/badge/?version=latest
-    :target: https://nidhogg.readthedocs.org/
+.. image:: https://readthedocs.org/projects/flask-nidhogg/badge/?version=latest
+    :target: https://flask-nidhogg.readthedocs.org/
     :alt: Docs
 
 .. image:: https://requires.io/github/Orhideous/flask-nidhogg/requirements.png?branch=master
@@ -49,7 +49,7 @@ From GitHub::
 Documentation
 =============
 
-`ReadTheDocs <http://nidhogg.readthedocs.org/en/latest/readme.html>`_
+`ReadTheDocs <http://flask-nidhogg.readthedocs.org/en/latest/readme.html>`_
 
 Development
 ===========
