@@ -1,7 +1,10 @@
 # flasky extensions.  flasky pygments style based on tango style
 from pygments.style import Style
-from pygments.token import Keyword, Name, Comment, String, Error, \
-     Number, Operator, Generic, Whitespace, Punctuation, Other, Literal
+from pygments.token import (
+    Keyword, Name, Comment, String, Error,
+    Number, Operator, Generic, Whitespace,
+    Punctuation, Other, Literal
+)
 
 
 class FlaskyStyle(Style):
@@ -10,13 +13,13 @@ class FlaskyStyle(Style):
 
     styles = {
         # No corresponding class for the following:
-        #Text:                     "", # class:  ''
-        Whitespace:                "underline #f8f8f8",      # class: 'w'
-        Error:                     "#a40000 border:#ef2929", # class: 'err'
-        Other:                     "#000000",                # class 'x'
+        # Text:                     "", # class:  ''
+        Whitespace:                "underline #f8f8f8",       # class: 'w'
+        Error:                     "#a40000 border:#ef2929",  # class: 'err'
+        Other:                     "#000000",                 # class 'x'
 
-        Comment:                   "italic #8f5902", # class: 'c'
-        Comment.Preproc:           "noitalic",       # class: 'cp'
+        Comment:                   "italic #8f5902",  # class: 'c'
+        Comment.Preproc:           "noitalic",        # class: 'cp'
 
         Keyword:                   "bold #004461",   # class: 'k'
         Keyword.Constant:          "bold #004461",   # class: 'kc'
@@ -59,28 +62,28 @@ class FlaskyStyle(Style):
         Literal:                   "#000000",        # class: 'l'
         Literal.Date:              "#000000",        # class: 'ld'
 
-        String:                    "#4e9a06",        # class: 's'
-        String.Backtick:           "#4e9a06",        # class: 'sb'
-        String.Char:               "#4e9a06",        # class: 'sc'
-        String.Doc:                "italic #8f5902", # class: 'sd' - like a comment
-        String.Double:             "#4e9a06",        # class: 's2'
-        String.Escape:             "#4e9a06",        # class: 'se'
-        String.Heredoc:            "#4e9a06",        # class: 'sh'
-        String.Interpol:           "#4e9a06",        # class: 'si'
-        String.Other:              "#4e9a06",        # class: 'sx'
-        String.Regex:              "#4e9a06",        # class: 'sr'
-        String.Single:             "#4e9a06",        # class: 's1'
-        String.Symbol:             "#4e9a06",        # class: 'ss'
+        String:                    "#4e9a06",         # class: 's'
+        String.Backtick:           "#4e9a06",         # class: 'sb'
+        String.Char:               "#4e9a06",         # class: 'sc'
+        String.Doc:                "italic #8f5902",  # class: 'sd' - like a comment
+        String.Double:             "#4e9a06",         # class: 's2'
+        String.Escape:             "#4e9a06",         # class: 'se'
+        String.Heredoc:            "#4e9a06",         # class: 'sh'
+        String.Interpol:           "#4e9a06",         # class: 'si'
+        String.Other:              "#4e9a06",         # class: 'sx'
+        String.Regex:              "#4e9a06",         # class: 'sr'
+        String.Single:             "#4e9a06",         # class: 's1'
+        String.Symbol:             "#4e9a06",         # class: 'ss'
 
-        Generic:                   "#000000",        # class: 'g'
-        Generic.Deleted:           "#a40000",        # class: 'gd'
-        Generic.Emph:              "italic #000000", # class: 'ge'
-        Generic.Error:             "#ef2929",        # class: 'gr'
-        Generic.Heading:           "bold #000080",   # class: 'gh'
-        Generic.Inserted:          "#00A000",        # class: 'gi'
-        Generic.Output:            "#888",           # class: 'go'
-        Generic.Prompt:            "#745334",        # class: 'gp'
-        Generic.Strong:            "bold #000000",   # class: 'gs'
-        Generic.Subheading:        "bold #800080",   # class: 'gu'
-        Generic.Traceback:         "bold #a40000",   # class: 'gt'
+        Generic:                   "#000000",         # class: 'g'
+        Generic.Deleted:           "#a40000",         # class: 'gd'
+        Generic.Emph:              "italic #000000",  # class: 'ge'
+        Generic.Error:             "#ef2929",         # class: 'gr'
+        Generic.Heading:           "bold #000080",    # class: 'gh'
+        Generic.Inserted:          "#00A000",         # class: 'gi'
+        Generic.Output:            "#888",            # class: 'go'
+        Generic.Prompt:            "#745334",         # class: 'gp'
+        Generic.Strong:            "bold #000000",    # class: 'gs'
+        Generic.Subheading:        "bold #800080",    # class: 'gu'
+        Generic.Traceback:         "bold #a40000",    # class: 'gt'
     }
