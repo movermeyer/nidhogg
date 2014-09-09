@@ -1,9 +1,7 @@
 import io
 import re
-from os.path import dirname
-from os.path import join
+from os.path import dirname, join
 
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -22,15 +20,14 @@ requirements = [
 ]
 setup(
     name="flask-nidhogg",
-    version="1.0.0",
+    version="1.1.0",
     license="GPLv3",
     description="OpenSource Yggdrasil protocol implementation",
     long_description="%s\n%s" % (read("README.rst"), re.sub(":obj:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst"))),
     author="Andriy Kushnir",
     author_email="orhideous@gmail.com",
     url="https://github.com/Orhideous/flask-nidhogg",
-    packages=find_packages("nidhogg"),
-    package_dir={"": "nidhogg"},
+    packages=["nidhogg"],
     include_package_data=True,
     zip_safe=False,
     classifiers=[
