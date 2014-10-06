@@ -1,12 +1,12 @@
 from itertools import product
 import json
-from common.utils import generate_token
 
 from nidhogg.common.models import User, Token
-
+from nidhogg.common.utils import generate_token
 from nidhogg.protocol import request as req
 from nidhogg.protocol import exceptions as exc
-from tests.base import BaseTestCase
+
+from tests import BaseTestCase
 
 
 class RequestTest(BaseTestCase):

@@ -1,11 +1,9 @@
-from itertools import product
-from common.utils import generate_token
-
-from nidhogg.common.models import User, Token
-
+from nidhogg.common.models import User
+from nidhogg.common.utils import generate_token
 from nidhogg.legacy import request as req
 from nidhogg.legacy import exceptions as exc
-from tests.base import BaseTestCase
+
+from tests import BaseTestCase
 
 
 class LegacyRequestTest(BaseTestCase):

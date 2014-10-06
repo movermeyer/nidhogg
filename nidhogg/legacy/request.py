@@ -3,8 +3,8 @@ from time import time
 from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from common.utils import generate_token
 
+from nidhogg.common.utils import generate_token
 from nidhogg.common.database import db
 from nidhogg.common.models import User, Token
 from nidhogg.legacy import exceptions as exc

@@ -49,4 +49,5 @@ setup(
     ],
     keywords=["Minecraft", "Yggdrasil", "Authentication", ],
     install_requires=read("requirements.txt").splitlines(),
+    test_suite='tests',
 )
