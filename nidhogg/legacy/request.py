@@ -130,10 +130,10 @@ class _Validate(LegacyRequest):
 class Check(_Validate):
     def process(self):
         super().process()
-        return "YES"
+        self._result = "YES"
 
 
 class Join(_Validate):
     def process(self):
         super().process()
-        return "OK"
+        self._result = "OK"

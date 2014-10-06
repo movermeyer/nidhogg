@@ -32,6 +32,7 @@ def json_response(function):
 
     return wrapped
 
+
 @json_response
 def error_handler(exception):
     """Helper function for proper exception handling in Flask"""

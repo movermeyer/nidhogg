@@ -22,7 +22,9 @@ class LegacyView(View):
         except AttributeError:
             raise exc.NoSuchMethod
 
-        return method(request.GET or request.POST)
+        return method(
+            {key: value[0] for key, value in dict(request.args).items()}
+        )
 
     @staticmethod
     def authenticate(raw_data):
