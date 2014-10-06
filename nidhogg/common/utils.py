@@ -1,8 +1,48 @@
 from functools import wraps
 from json import dumps
 from datetime import datetime, date, time, timedelta, tzinfo
+import uuid
 
 from flask import make_response
+
+
+def generate_token():
+    """Generate random UUID token like Java's UUID.toString()
+
+    :rtype: str
+    """
+    return uuid.uuid1().hex
+
+
+def json_response(function):
+    """Decorator for json response from views"""
+
+    @wraps(function)
+    def wrapped(*args, **kwargs):
+        """Return function result as Flask response with json string payload
+
+        :return: Flask response
+        :rtype: Response
+        """
+        result = function(*args, **kwargs)
+        result = dumps(result, default=json_datetime_default)
+        response = make_response(result)
+        response.mimetype = 'application/json'
+        return response
+
+    return wrapped
+
+@json_response
+def error_handler(exception):
+    """Helper function for proper exception handling in Flask"""
+    return exception.data
+
+
+class Classproperty(property):
+    """Property decorator for classes."""
+
+    def __get__(self, cls, owner):
+        return self.fget.__get__(None, owner)()
 
 
 class FixedOffset(tzinfo):
@@ -74,22 +114,3 @@ def json_datetime_hook(dictionary):
         return res
 
     return dictionary
-
-
-def json_response(function):
-    """Decorator for json response from views"""
-
-    @wraps(function)
-    def wrapped(*args, **kwargs):
-        """Return function result as Flask response with json string payload
-
-        :return: Flask response
-        :rtype: Response
-        """
-        result = function(*args, **kwargs)
-        result = dumps(result, default=json_datetime_default)
-        response = make_response(result)
-        response.mimetype = 'application/json'
-        return response
-
-    return wrapped

@@ -1,19 +1,6 @@
 """Exceptions for Yggdrasil protocol"""
 
-from nidhogg.common.utils import json_response
-
-
-@json_response
-def error_handler(exception):
-    """Helper function for proper exception handling in Flask"""
-    return exception.dictionary
-
-
-class Classproperty(property):
-    """Property decorator for classes."""
-
-    def __get__(self, cls, owner):
-        return self.fget.__get__(None, owner)()
+from nidhogg.common.utils import Classproperty
 
 
 class YggdrasilError(Exception):
@@ -34,7 +21,7 @@ class YggdrasilError(Exception):
 
     @Classproperty
     @classmethod
-    def dictionary(cls):
+    def data(cls):
         """The dictionary representation of the error.
 
         :rtype: dict

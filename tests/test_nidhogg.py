@@ -1,5 +1,6 @@
 from itertools import product
 import json
+from common.utils import generate_token
 
 from nidhogg.common.models import User, Token
 
@@ -25,7 +26,7 @@ class RequestTest(BaseTestCase):
         self.assertEqual(payload, r.payload)
 
     def test_token_method(self):
-        token = req.Request._generate_token()
+        token = generate_token()
         self.assertIsInstance(token, str)
         self.assertEqual(len(token), 32)
         self.assertIsInstance(int(token, 16), int)
@@ -72,7 +73,7 @@ class AuthenticateTest(BaseTestCase):
         payload = {
             "username": "Twilight",
             "password": "12345",
-            "clientToken": req.Request._generate_token()
+            "clientToken": generate_token()
         }
         req.Authenticate(json.dumps(payload))
 
@@ -149,7 +150,7 @@ class AuthenticateTest(BaseTestCase):
         payload = {
             "username": "twilight_sparkle@ponyville.eq",
             "password": "12345",
-            "clientToken": req.Request._generate_token()
+            "clientToken": generate_token()
         }
         request = req.Authenticate(json.dumps(payload))
         request.process()

@@ -1,11 +1,11 @@
 """Request classes implementing main protocol logic"""
 
-import uuid
 import json
 
 from sqlalchemy import or_
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from common.utils import generate_token
 
 from nidhogg.common.database import db
 from nidhogg.common.models import User, Token
@@ -61,15 +61,6 @@ class Request:
         """
 
         raise NotImplementedError
-
-    @staticmethod
-    def _generate_token():
-        """Generate random UUID token like Java's UUID.toString()
-
-        :rtype: str
-        """
-
-        return uuid.uuid1().hex
 
     @staticmethod
     def validate_credentials(payload):
@@ -205,8 +196,8 @@ class Authenticate(Request):
             password=self.payload.get("password")
         )
         token = user.token or Token()
-        token.access = self._generate_token()
-        token.client = self.payload.get("clientToken", self._generate_token())
+        token.access = generate_token()
+        token.client = self.payload.get("clientToken", generate_token())
         user.token = token
 
         db.session.commit()
@@ -235,7 +226,7 @@ class Refresh(Request):
         """
 
         token = self.get_token(self.payload.get("clientToken"))
-        token.access = Request._generate_token()
+        token.access = generate_token()
         db.session.commit()
 
         self._result = {
