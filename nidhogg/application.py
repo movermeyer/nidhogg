@@ -23,11 +23,6 @@ def create_app():
 
     db.init_app(application)
 
-    from nidhogg.pages.views import pages_app
-    from nidhogg.ajax.views import ajax_app
-
-    application.register_blueprint(pages_app, url_prefix='/admin')
-    application.register_blueprint(ajax_app, url_prefix='/ajax')
     application.add_url_rule(
         '/<method>',
         view_func=YggdrasilView.as_view('generic'),
