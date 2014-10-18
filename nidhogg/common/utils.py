@@ -4,6 +4,8 @@ from datetime import datetime, date, time, timedelta, tzinfo
 import uuid
 
 from flask import make_response
+from flask import request
+from nidhogg.protocol import exceptions as exc
 
 
 def generate_token():
@@ -13,6 +15,63 @@ def generate_token():
     """
     return uuid.uuid1().hex
 
+
+def method(name):
+    """Restrict request method
+
+    :param name: Method name
+    :type name: str
+    :return: Decorator
+    :rtype: callable
+    :raise exc.MethodNotAllowed:
+    """
+
+    def decorator(function):
+        """
+        :param function: Function or method to decorate
+        :type function: callable
+        :return: Decorated function
+        :rtype: callable
+        :raise exc.MethodNotAllowed:
+        """
+
+        @wraps(function)
+        def wrapped(*args, **kwargs):
+            if request.method != name:
+                raise exc.MethodNotAllowed
+            return function(*args, **kwargs)
+
+        return wrapped
+    return decorator
+
+
+def mime(mimetype):
+    """Restrict request MIME type
+
+    :param mimetype: MIME type name
+    :type mimetype: str
+    :return: Decorator
+    :rtype: callable
+    :raise exc.BadRequest:
+    """
+
+    def decorator(function):
+        """
+        :param function: Function or method to decorate
+        :type function: callable
+        :return: Decorated function
+        :rtype: callable
+        """
+
+        @wraps(function)
+        def wrapped(*args, **kwargs):
+            if request.mimetype != mimetype:
+                raise exc.BadRequest
+            return function(*args, **kwargs)
+
+        return wrapped
+
+    return decorator
 
 def json_response(function):
     """Decorator for json response from views"""
