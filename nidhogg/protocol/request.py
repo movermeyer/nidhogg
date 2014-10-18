@@ -159,6 +159,8 @@ class Request:
 class Authenticate(Request):
     """Yggdrasil authentication request."""
 
+    AGENT = {"name": "Minecraft", "version": 1}
+
     def validate(self, payload):
         super().validate(payload)
         self.validate_credentials(payload)
@@ -166,7 +168,7 @@ class Authenticate(Request):
         agent = payload.get("agent")
         if agent is not None:
             try:
-                assert agent == {"name": "Minecraft", "version": 1}
+                assert agent == self.AGENT
             except AssertionError:
                 raise exc.BadPayload
 
@@ -208,6 +210,7 @@ class Authenticate(Request):
             profile = {"id": token.client, "name": user.login}
             result["selectedProfile"] = profile
             result["availableProfiles"] = [profile]
+            result["agent"] = self.AGENT
 
         self._result = result
 
