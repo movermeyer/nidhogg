@@ -1,20 +1,10 @@
 """Exceptions for Legacy Auth protocol"""
-
 from nidhogg.common.utils import Classproperty
+from nidhogg.common.exceptions import NidhoggError
 
 
-class LegacyError(Exception):
+class LegacyError(NidhoggError):
     """Base exception class for Legacy Auth errors."""
-
-    message = None
-
-    def __new__(cls, *args, **kwargs):
-        if cls is LegacyError:
-            raise TypeError(
-                "{} class may not be instantiated!"
-                .format(cls.__name__)
-            )
-        return super().__new__(cls, *args, **kwargs)
 
     @Classproperty
     @classmethod

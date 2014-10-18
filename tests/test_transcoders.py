@@ -3,12 +3,8 @@
 from datetime import datetime, date, timedelta
 import json
 import unittest
-
-from nidhogg.common.utils import (
-    json_datetime_hook,
-    json_datetime_default,
-    FixedOffset
-)
+from nidhogg.common.json import json_datetime_hook, json_datetime_default
+from nidhogg.common.utils import FixedOffset
 
 
 class TestDatetimeEncoderDecoder(unittest.TestCase):

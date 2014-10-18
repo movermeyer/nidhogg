@@ -1,35 +1,10 @@
 """Exceptions for Yggdrasil protocol"""
+from nidhogg.common.exceptions import NidhoggError
 
-from nidhogg.common.utils import Classproperty
 
-
-class YggdrasilError(Exception):
+class YggdrasilError(NidhoggError):
     """Base exception class for Yggdrasil-specific errors."""
-
     status_code = None
-    error = None
-    message = None
-    cause = None
-
-    def __new__(cls, *args, **kwargs):
-        if cls is YggdrasilError:
-            raise TypeError(
-                "{} class may not be instantiated!"
-                .format(cls.__name__)
-            )
-        return super().__new__(cls, *args, **kwargs)
-
-    @Classproperty
-    @classmethod
-    def data(cls):
-        """The dictionary representation of the error.
-
-        :rtype: dict
-        """
-        result = {"error": cls.error, "errorMessage": cls.message}
-        if cls.cause is not None:
-            result["cause"] = cls.cause
-        return result
 
 
 class MethodNotAllowed(YggdrasilError):

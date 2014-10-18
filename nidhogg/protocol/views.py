@@ -1,40 +1,17 @@
 """Class-based request view for passing HTTP requests to Request instances"""
-
-from flask import request
-from flask.views import View
-
-from nidhogg.protocol import exceptions as exc
+from nidhogg.common.json import json_response
 from nidhogg.protocol import request as req
-from nidhogg.common.utils import json_response
+from nidhogg.common.views import MethodView
+from nidhogg.common.decorators import method, mime
 
 
-class YggdrasilView(View):
+class YggdrasilView(MethodView):
     """Class-based view as wrapper for HTTP API"""
 
-    methods = ['GET', 'POST']
-
+    @method("POST")
+    @mime("application/json")
     def dispatch_request(self, *args, **kwargs):
-        """
-        Dispatches request to endpoint or
-        return NotFound as JSON'ified error.
-        """
-        try:
-            endpoint = kwargs['method']
-        except KeyError:
-            raise exc.NotFound
-
-        if request.method != "POST":
-            raise exc.MethodNotAllowed
-
-        if request.mimetype != "application/json":
-            raise exc.BadRequest
-
-        try:
-            method = getattr(self, endpoint)
-        except AttributeError:
-            raise exc.NotFound
-
-        return method(request.data)
+        return super().dispatch_request(*args, **kwargs)
 
     @staticmethod
     @json_response
