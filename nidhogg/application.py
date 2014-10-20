@@ -2,10 +2,11 @@
 import os
 
 from flask import Flask
+from common.exceptions import NidhoggError
 
-from nidhogg.protocol.yggdrasil.exceptions import YggdrasilError
 from nidhogg.protocol.yggdrasil.views import YggdrasilView
 from nidhogg.protocol.legacy.views import LegacyView
+from nidhogg.api.views import ApiView
 
 
 def create_app():
@@ -33,7 +34,10 @@ def create_app():
         '/auth/legacy/<method>',
         view_func=LegacyView.as_view('legacy'),
     )
-
-    application.register_error_handler(YggdrasilError, YggdrasilError.handler)
+    application.add_url_rule(
+        '/api/<method>',
+        view_func=ApiView.as_view('api'),
+    )
+    application.register_error_handler(NidhoggError, NidhoggError.handler)
 
     return application
