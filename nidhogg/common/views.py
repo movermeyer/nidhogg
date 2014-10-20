@@ -3,7 +3,7 @@
 from flask import request
 from flask.views import View
 
-from nidhogg.protocol import exceptions as exc
+from nidhogg.protocol.yggdrasil import exceptions as exc
 
 
 class MethodView(View):

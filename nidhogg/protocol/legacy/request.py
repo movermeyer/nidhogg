@@ -7,7 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from nidhogg.common.utils import generate_token
 from nidhogg.common.database import db
 from nidhogg.common.models import User, Token
-from nidhogg.legacy import exceptions as exc
+from nidhogg.protocol.legacy import exceptions as exc
 
 
 class LegacyRequest:

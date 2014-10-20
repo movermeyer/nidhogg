@@ -1,7 +1,7 @@
 from nidhogg.common.models import User
 from nidhogg.common.utils import generate_token
-from nidhogg.legacy import request as req
-from nidhogg.legacy import exceptions as exc
+from nidhogg.protocol.legacy import request as req
+from nidhogg.protocol.legacy import exceptions as exc
 
 from tests import BaseTestCase
 

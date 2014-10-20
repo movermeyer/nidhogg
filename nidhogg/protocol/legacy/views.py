@@ -3,8 +3,8 @@
 from flask import request
 from flask.views import View
 
-from nidhogg.legacy import exceptions as exc
-from nidhogg.legacy import request as req
+from nidhogg.protocol.legacy import exceptions as exc
+from nidhogg.protocol.legacy import request as req
 
 
 class LegacyView(View):

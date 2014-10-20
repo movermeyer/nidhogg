@@ -2,7 +2,7 @@ from functools import wraps
 
 from flask import request
 
-from nidhogg.protocol import exceptions as exc
+from nidhogg.protocol.yggdrasil import exceptions as exc
 
 
 def method(name):

@@ -3,9 +3,9 @@ import os
 
 from flask import Flask
 
-from nidhogg.protocol.exceptions import YggdrasilError
-from nidhogg.protocol.views import YggdrasilView
-from nidhogg.legacy.views import LegacyView
+from nidhogg.protocol.yggdrasil.exceptions import YggdrasilError
+from nidhogg.protocol.yggdrasil.views import YggdrasilView
+from nidhogg.protocol.legacy.views import LegacyView
 
 
 def create_app():
@@ -26,11 +26,11 @@ def create_app():
     db.init_app(application)
 
     application.add_url_rule(
-        '/<method>',
+        '/auth/<method>',
         view_func=YggdrasilView.as_view('generic'),
     )
     application.add_url_rule(
-        '/legacy/<method>',
+        '/auth/legacy/<method>',
         view_func=LegacyView.as_view('legacy'),
     )
 

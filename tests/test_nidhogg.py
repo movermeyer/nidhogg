@@ -3,8 +3,8 @@ import json
 
 from nidhogg.common.models import User, Token
 from nidhogg.common.utils import generate_token
-from nidhogg.protocol import request as req
-from nidhogg.protocol import exceptions as exc
+from nidhogg.protocol.yggdrasil import request as req
+from nidhogg.protocol.yggdrasil import exceptions as exc
 
 from tests import BaseTestCase
 
