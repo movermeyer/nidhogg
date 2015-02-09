@@ -7,9 +7,9 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 from nidhogg.common.utils import generate_token
-from nidhogg.common.database import db
+from nidhogg.common.database import DBSession
 from nidhogg.common.models import User, Token
-from nidhogg.protocol.yggdrasil import exceptions as exc
+from auth import exceptions as exc
 
 
 class Request:
@@ -202,7 +202,7 @@ class Authenticate(Request):
         token.client = self.payload.get("clientToken", generate_token())
         user.token = token
 
-        db.session.commit()
+        DBSession.commit()
 
         result = {"accessToken": token.access, "clientToken": token.client}
 
@@ -230,7 +230,7 @@ class Refresh(Request):
 
         token = self.get_token(self.payload.get("clientToken"))
         token.access = generate_token()
-        db.session.commit()
+        DBSession.commit()
 
         self._result = {
             "accessToken": token.access,
@@ -286,8 +286,8 @@ class Signout(Request):
             username=self.payload.get("username"),
             password=self.payload.get("password")
         )
-        db.session.delete(user.token)
-        db.session.commit()
+        DBSession.delete(user.token)
+        DBSession.commit()
 
 
 class Invalidate(Request):
@@ -298,5 +298,5 @@ class Invalidate(Request):
         """Invalidates accessTokens using a client/access token pair."""
 
         token = self.get_token(self.payload.get("clientToken"))
-        db.session.delete(token)
-        db.session.commit()
+        DBSession.delete(token)
+        DBSession.commit()

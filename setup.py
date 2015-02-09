@@ -16,8 +16,8 @@ except ImportError:
 readme = open("README.rst").read()
 history = open("HISTORY.rst").read().replace(".. :changelog:", "")
 
-requirements = read("requirements.txt").splitlines(),
-test_requirements = read("test_requirements.txt").splitlines(),
+requirements = read("requirements.production.txt").splitlines(),
+test_requirements = read("requirements.testing.txt").splitlines(),
 
 setup(
     name="nidhogg",

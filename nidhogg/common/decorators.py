@@ -1,38 +1,6 @@
 from functools import wraps
 
-from flask import request
-
-from nidhogg.protocol.yggdrasil import exceptions as exc
-
-
-def method(name):
-    """Restrict request method
-
-    :param name: Method name
-    :type name: str
-    :return: Decorator
-    :rtype: callable
-    :raise exc.MethodNotAllowed:
-    """
-
-    def decorator(function):
-        """
-        :param function: Function or method to decorate
-        :type function: callable
-        :return: Decorated function
-        :rtype: callable
-        :raise exc.MethodNotAllowed:
-        """
-
-        @wraps(function)
-        def wrapped(*args, **kwargs):
-            if request.method != name:
-                raise exc.MethodNotAllowed
-            return function(*args, **kwargs)
-
-        return wrapped
-
-    return decorator
+from auth import exceptions as exc
 
 
 def mime(mimetype):

@@ -1,5 +1,4 @@
 """Exceptions for Yggdrasil protocol"""
-from nidhogg.common.json import json_response
 from nidhogg.common.utils import Classproperty
 
 
@@ -23,7 +22,6 @@ class NidhoggError(Exception):
         return result
 
     @staticmethod
-    @json_response
     def handler(exception):
-        """Helper function for proper exception handling in Flask"""
+        """Helper function for proper exception handling"""
         return exception.data

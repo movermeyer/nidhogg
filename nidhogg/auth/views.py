@@ -2,7 +2,7 @@
 from nidhogg.common.json import json_response
 from nidhogg.common.views import MethodView
 from nidhogg.common.decorators import method, mime
-from nidhogg.protocol.yggdrasil import request as req
+from auth import request as req
 
 
 class YggdrasilView(MethodView):

@@ -1,14 +1,14 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
 
 python:
   - "3.4"
 
-install: pip install -r test_requirements.txt --allow-external mysql-connector-python
+install:
+  - pip install -r requirements.production.txt --allow-external mysql-connector-python
+  - pip install -r requirements.testing.txt
 
 script:
   - flake8 nidhogg tests
-  - coverage run --source=lsapi setup.py test
+  - coverage run --source=nidhogg setup.py test
 
 after_success: coveralls

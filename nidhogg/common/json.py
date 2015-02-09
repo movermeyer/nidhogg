@@ -1,36 +1,13 @@
 from datetime import date, time, datetime
-from functools import wraps
-from json import dumps
-
-from flask import make_response
 
 from nidhogg.common.utils import FixedOffset
-
-
-def json_response(function):
-    """Decorator for json response from views"""
-
-    @wraps(function)
-    def wrapped(*args, **kwargs):
-        """Return function result as Flask response with json string payload
-
-        :return: Flask response
-        :rtype: Response
-        """
-        result = function(*args, **kwargs)
-        result = dumps(result, default=json_datetime_default)
-        response = make_response(result)
-        response.mimetype = 'application/json'
-        return response
-
-    return wrapped
 
 
 def json_datetime_hook(dictionary):
     """JSON object_hook function for decoding date/time/datetime objects.
     Usage: json.loads(object, object_hook=json_datetime_hook)
 
-    :type dictionary: dict
+    :type dictionary: dict[str, list[int]]
     :rtype: datetime | date | time
     """
 
