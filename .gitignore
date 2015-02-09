@@ -24,8 +24,6 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
-.coverage
-.coverage.*
 nosetests.xml
 htmlcov
 
@@ -33,14 +31,13 @@ htmlcov
 *.mo
 
 # Mr Developer
-.idea/*
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Complexity
+output/*.html
+output/*/index.html
 
 # Sphinx
 docs/_build
-
-.DS_Store
-*~
-.*.sw[po]
-.build
-.ve
-.

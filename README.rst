@@ -1,55 +1,55 @@
-.. image:: https://travis-ci.org/Orhideous/flask-nidhogg.png
-    :target: https://travis-ci.org/Orhideous/flask-nidhogg
+=======
+Nidhogg
+=======
+
+.. image:: https://travis-ci.org/Orhideous/nidhogg.png
+    :target: https://travis-ci.org/Orhideous/nidhogg
     :alt: Build Status
 
-.. image:: https://coveralls.io/repos/Orhideous/flask-nidhogg/badge.png?branch=master
-    :target: https://coveralls.io/r/Orhideous/flask-nidhogg?branch=master
+.. image:: https://coveralls.io/repos/Orhideous/nidhogg/badge.png?branch=master
+    :target: https://coveralls.io/r/Orhideous/nidhogg?branch=master
     :alt: Coverage Status
 
-.. image:: https://pypip.in/v/flask-nidhogg/badge.png
-    :target: https://crate.io/packages/flask-nidhogg
+.. image:: https://pypip.in/v/nidhogg/badge.png
+    :target: https://crate.io/packages/nidhogg
     :alt: Version
 
-.. image:: https://pypip.in/d/flask-nidhogg/badge.png
-    :target: https://crate.io/packages/flask-nidhogg
-    :alt: Downloads
-
-.. image:: https://pypip.in/format/flask-nidhogg/badge.png
-    :target: https://pypi.python.org/pypi/flask-nidhogg/
+.. image:: https://pypip.in/format/nidhogg/badge.png
+    :target: https://pypi.python.org/pypi/nidhogg/
     :alt: Download format
 
-.. image:: https://pypip.in/license/flask-nidhogg/badge.png
-    :target: https://pypi.python.org/pypi/flask-nidhogg/
+.. image:: https://pypip.in/license/nidhogg/badge.png
+    :target: https://pypi.python.org/pypi/nidhogg/
     :alt: License
 
-.. image:: https://readthedocs.org/projects/flask-nidhogg/badge/?version=latest
-    :target: https://flask-nidhogg.readthedocs.org/
+.. image:: https://readthedocs.org/projects/nidhogg/badge/?version=latest
+    :target: https://nidhogg.readthedocs.org/
     :alt: Docs
 
-.. image:: https://requires.io/github/Orhideous/flask-nidhogg/requirements.png?branch=master
-     :target: https://requires.io/github/Orhideous/flask-nidhogg/requirements/?branch=master
+.. image:: https://requires.io/github/Orhideous/nidhogg/requirements.png?branch=master
+     :target: https://requires.io/github/Orhideous/nidhogg/requirements/?branch=master
      :alt: Requirements Status
 
 About
 =====
 
-OpenSource Yggdrasil protocol implementation
+Open-source Minecraft server bootstrapping platform
 
 Installation
 ============
 
 From PyPI::
 
-    pip install flask-nidhogg
+    pip install nidhogg
 
 From GitHub::
 
-    git clone https://github.com/Orhideous/flask-nidhogg.git
+    git clone https://github.com/Orhideous/nidhogg.git
 
 Documentation
 =============
 
-`ReadTheDocs <http://flask-nidhogg.readthedocs.org/en/latest/readme.html>`_
+`ReadTheDocs <http://nidhogg.readthedocs.org/en/latest/readme.html>`_
 
 Development
 ===========
@@ -57,3 +57,4 @@ Development
 To run the all tests run::
 
     tox
+

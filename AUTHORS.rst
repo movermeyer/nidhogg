@@ -1,4 +1,13 @@
-Authors
+=======
+Credits
 =======
 
-* Andriy Kushnir (Orhideous) - https://orhideous.name
+Development Lead
+----------------
+
+* Andriy Kushnir (Orhideous) <orhideous@gmail.com>
+
+Contributors
+------------
+
+None yet. Why not be the first?
