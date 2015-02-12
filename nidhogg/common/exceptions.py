@@ -20,8 +20,3 @@ class NidhoggError(Exception):
         if cls.cause is not None:
             result["cause"] = cls.cause
         return result
-
-    @staticmethod
-    def handler(exception):
-        """Helper function for proper exception handling"""
-        return exception.data

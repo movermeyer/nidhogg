@@ -54,10 +54,10 @@ setup(
         "Topic :: Utilities",
     ],
     test_suite="tests",
-    tests_require=test_requirements,
+    tests_require=requirements + test_requirements,
     entry_points="""
         [paste.app_factory]
         main = nidhogg.app:main
-    """,
+    """.strip(),
     paster_plugins=["pyramid"],
 )

@@ -1,8 +1,5 @@
 """Class-based request view for passing HTTP requests to Request instances"""
-from nidhogg.common.json import json_response
-from nidhogg.common.views import MethodView
-from nidhogg.common.decorators import method, mime
-from auth import request as req
+from nidhogg.auth import request
 
 
 class YggdrasilView(MethodView):
@@ -26,7 +23,7 @@ class YggdrasilView(MethodView):
         :return: JSON-encoded dict
         """
 
-        instance = req.Authenticate(raw_data)
+        instance = request.Authenticate(raw_data)
         instance.process()
         return instance.result
 
@@ -43,7 +40,7 @@ class YggdrasilView(MethodView):
         :return: JSON-encoded dict
         """
 
-        instance = req.Refresh(raw_data)
+        instance = request.Refresh(raw_data)
         instance.process()
         return instance.result
 
@@ -59,7 +56,7 @@ class YggdrasilView(MethodView):
         :return: Empty string (nothing)
         """
 
-        instance = req.Validate(raw_data)
+        instance = request.Validate(raw_data)
         instance.process()
         return ''
 
@@ -75,7 +72,7 @@ class YggdrasilView(MethodView):
         :return: Empty string (nothing)
         """
 
-        instance = req.Signout(raw_data)
+        instance = request.Signout(raw_data)
         instance.process()
         return ''
 
@@ -91,6 +88,6 @@ class YggdrasilView(MethodView):
         :return: Empty string (nothing)
         """
 
-        instance = req.Invalidate(raw_data)
+        instance = request.Invalidate(raw_data)
         instance.process()
         return ''
