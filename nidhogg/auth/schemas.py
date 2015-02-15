@@ -5,7 +5,10 @@ from colander import SchemaNode
 from colander import String, Integer
 from colander import Length, OneOf
 
-from nidhogg.common.utils import uuid1
+from nidhogg.common.utils import generate_token
+
+
+AGENT = {"name": "Minecraft", "version": 1}
 
 
 class AccessToken(MappingSchema):
@@ -47,4 +50,4 @@ class Refresh(TokensPair):
 class Authenticate(Agent, Credentials):
     """Auth payload"""
     agent = Agent()
-    clientToken = SchemaNode(String(), validator=Length(min=8, max=255), missing=uuid1())
+    clientToken = SchemaNode(String(), validator=Length(min=8, max=255), missing=generate_token())
