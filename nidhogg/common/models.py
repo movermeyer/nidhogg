@@ -43,3 +43,10 @@ class Token(Base):
             self.id,
             self.user_id
         )
+
+    def as_dict(self):
+        """Dictionary representation of current token
+
+        :rtype: dict[str, str]
+        """
+        return {"accessToken": self.access, "clientToken": self.client}
