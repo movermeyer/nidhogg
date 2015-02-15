@@ -9,16 +9,17 @@ from nidhogg.common.utils import generate_token
 
 
 AGENT = {"name": "Minecraft", "version": 1}
+str_validator = Length(min=8, max=255)
 
 
 class AccessToken(MappingSchema):
     """Access token"""
-    accessToken = SchemaNode(String(), validator=Length(min=8, max=255))
+    accessToken = SchemaNode(String(), validator=str_validator)
 
 
 class ClientToken(MappingSchema):
     """Client token"""
-    clientToken = SchemaNode(String(), validator=Length(min=8, max=255))
+    clientToken = SchemaNode(String(), validator=str_validator)
 
 
 class TokensPair(AccessToken, ClientToken):
@@ -27,14 +28,14 @@ class TokensPair(AccessToken, ClientToken):
 
 class Credentials(MappingSchema):
     """Credentials mapping with login and password"""
-    username = SchemaNode(String(), validator=Length(min=8, max=255))
-    password = SchemaNode(String(), validator=Length(min=8, max=255))
+    username = SchemaNode(String(), validator=str_validator)
+    password = SchemaNode(String(), validator=str_validator)
 
 
 class Profile(MappingSchema):
     """Selected profile mapping"""
-    id = SchemaNode(String(), validator=Length(min=8, max=255))
-    name = SchemaNode(String(), validator=Length(min=8, max=255))
+    id = SchemaNode(String(), validator=str_validator)
+    name = SchemaNode(String(), validator=str_validator)
 
 
 class Agent(MappingSchema):
@@ -47,7 +48,7 @@ class Refresh(TokensPair):
     selectedProfile = Profile()
 
 
-class Authenticate(Agent, Credentials):
+class Authenticate(Credentials):
     """Auth payload"""
     agent = Agent()
-    clientToken = SchemaNode(String(), validator=Length(min=8, max=255), missing=generate_token())
+    clientToken = SchemaNode(String(), validator=str_validator, missing=generate_token())
