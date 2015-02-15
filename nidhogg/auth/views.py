@@ -1,93 +1,75 @@
-"""Class-based request view for passing HTTP requests to Request instances"""
-from nidhogg.auth import request
+from pyramid.view import view_defaults
+from pyramid.view import view_config
+
+from nidhogg.auth.resources import AuthEndpoint
+from nidhogg.auth import schemas
+from nidhogg.auth import logic as bl
 
 
-class YggdrasilView(MethodView):
+@view_defaults(request_method="POST", context=AuthEndpoint, renderer='json')
+class YggdrasilAuthViews:
     """Class-based view as wrapper for HTTP API"""
 
-    @method("POST")
-    @mime("application/json")
-    def dispatch_request(self, *args, **kwargs):
-        return super().dispatch_request(*args, **kwargs)
+    SCHEMA_ROUTER = {
+        "authenticate": schemas.Authenticate,
+        "refresh": schemas.Refresh,
+        "validate": schemas.AccessToken,
+        "signout": schemas.Credentials,
+        "invalidate": schemas.TokensPair
+    }
 
-    @staticmethod
-    @json_response
-    def authenticate(raw_data):
+    def __init__(self, request, context):
+        self.request = request
+        self.context = context
+        current_schema = self.SCHEMA_ROUTER[request.view_name]
+        self.payload = current_schema().deserialize(self.request.json_body)
+
+    @view_config()
+    def authenticate(self):
         """Authenticate endpoint
 
-        .. note::
-            URL: /authenticate
-
-        :type raw_data: bytes
-        :rtype: str
-        :return: JSON-encoded dict
+        :rtype: dict
+        :return: Result dictionary
         """
+        user = bl.get_user(self.payload["username"], self.payload["password"])
+        token = bl.authenticate_user(user, self.payload["clientToken"])
+        profile = {"id": token.client, "name": user.login}
 
-        instance = request.Authenticate(raw_data)
-        instance.process()
-        return instance.result
+        return {
+            "accessToken": token.access,
+            "clientToken": token.client,
+            "selectedProfile": profile,
+            "availableProfiles": [profile],
+            "agent": schemas.AGENT,
+        }
 
-    @staticmethod
-    @json_response
-    def refresh(raw_data):
+    @view_config()
+    def refresh(self):
         """Refresh endpoint
 
-        .. note::
-            URL: /refresh
-
-        :type raw_data: bytes
-        :rtype: str
-        :return: JSON-encoded dict
+        :rtype: dict
+        :return: Result dictionary
         """
+        token = bl.get_token(self.payload["clientToken"])
+        fresh_token = bl.refresh_token(token)
+        return fresh_token.as_dict()
 
-        instance = request.Refresh(raw_data)
-        instance.process()
-        return instance.result
+    @view_config()
+    def validate(self):
+        """Validate endpoint"""
+        bl.validate_token(self.payload["accessToken"])
 
-    @staticmethod
-    def validate(raw_data):
-        """Validate endpoint
-
-        .. note::
-            URL: /validate
-
-        :type raw_data: bytes
-        :rtype: str
-        :return: Empty string (nothing)
-        """
-
-        instance = request.Validate(raw_data)
-        instance.process()
-        return ''
-
-    @staticmethod
-    def signout(raw_data):
+    @view_config()
+    def signout(self):
         """Signout endpoint
 
-        .. note::
-            URL: /signout
-
-        :type raw_data: bytes
-        :rtype: str
-        :return: Empty string (nothing)
+        Invalidate token using an account's username and password
         """
+        user = bl.get_user(self.payload["username"], self.payload["password"])
+        bl.invalidate_token(user.token)
 
-        instance = request.Signout(raw_data)
-        instance.process()
-        return ''
-
-    @staticmethod
-    def invalidate(raw_data):
-        """Invalidate endpoint
-
-        .. note::
-            URL: /invalidate
-
-        :type raw_data: bytes
-        :rtype: str
-        :return: Empty string (nothing)
-        """
-
-        instance = request.Invalidate(raw_data)
-        instance.process()
-        return ''
+    @view_config()
+    def invalidate(self):
+        """Invalidates accessTokens using a client/access token pair"""
+        token = bl.get_token(self.payload["clientToken"])
+        bl.invalidate_token(token)
