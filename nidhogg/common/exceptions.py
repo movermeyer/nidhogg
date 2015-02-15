@@ -1,5 +1,4 @@
 """Exceptions for Yggdrasil protocol"""
-from nidhogg.common.utils import Classproperty
 
 
 class NidhoggError(Exception):
@@ -9,12 +8,11 @@ class NidhoggError(Exception):
     message = None
     cause = None
 
-    @Classproperty
     @classmethod
-    def data(cls):
+    def get_info(cls):
         """The dictionary representation of the error.
 
-        :rtype: dict
+        :rtype: dict[str,str]
         """
         result = {"error": cls.error, "errorMessage": cls.message}
         if cls.cause is not None:
