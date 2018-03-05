@@ -6,19 +6,19 @@
     :target: https://coveralls.io/r/Orhideous/flask-nidhogg?branch=master
     :alt: Coverage Status
 
-.. image:: https://pypip.in/v/flask-nidhogg/badge.png
+.. image:: https://img.shields.io/pypi/v/flask-nidhogg.svg
     :target: https://crate.io/packages/flask-nidhogg
     :alt: Version
 
-.. image:: https://pypip.in/d/flask-nidhogg/badge.png
+.. image:: https://img.shields.io/pypi/dm/flask-nidhogg.svg
     :target: https://crate.io/packages/flask-nidhogg
     :alt: Downloads
 
-.. image:: https://pypip.in/format/flask-nidhogg/badge.png
+.. image:: https://img.shields.io/pypi/format/flask-nidhogg.svg
     :target: https://pypi.python.org/pypi/flask-nidhogg/
     :alt: Download format
 
-.. image:: https://pypip.in/license/flask-nidhogg/badge.png
+.. image:: https://img.shields.io/pypi/l/flask-nidhogg.svg
     :target: https://pypi.python.org/pypi/flask-nidhogg/
     :alt: License
 
